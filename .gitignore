@@ -1,3 +1,4 @@
 file_to_ignore.txt
 *.tmp
 *.dat
+.Rproj.user
