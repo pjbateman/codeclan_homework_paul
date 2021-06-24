@@ -38,13 +38,25 @@ Ok, now take your subsetted data movies_selected, and count the number of missin
 ```{r}
 # counting missing values
 movies_selected %>%
-  #summarise(count = sum(is.na(title)))
-  summarise(count = sum(is.na(runtime)))
-  #summarise(count = sum(is.na(budget)))
+  summarise(
+    na_runtime = sum(is.na(runtime)),
+    na_title = sum(is.na(title)),
+    na_budget = sum(is.na(budget))
+)
 ```
 title = 0
 runtime = 2 
 budget = 0
+
+or you can write your own function, and then employ it
+```{r}
+count_na <- function(col){
+  return(sum(is.na(col)))
+}
+
+movies_selected %>%
+    summarise(across(.cols = everything(), .fns = count_na))
+```
 
 Question 4.
 
@@ -112,11 +124,12 @@ Hint:
 movie_budgets <- movies_imputed %>%
   mutate(
     budget_type = case_when(
-      budget < 12*10^6 ~ "Small budget",
-      budget <= 40*10^6 ~ "Medium budget",
+      budget < 12e6 ~ "Small budget",
+      budget < 40e6 ~ "Medium budget",
       TRUE               ~ "Big budget"
     )
-  )
+  ) %>%
+  count(budget_type)
 movie_budgets
 ```
 
@@ -125,3 +138,9 @@ movie_budgets
 Question 2.
 
 Take the original dataset with all the variables. Using across and where, summarise the number of missing values, first across all columns of type character, and then across all columns of type numeric.
+
+```{r}
+movies %>%
+  summarise(across(where(is.numeric), count_na))
+```
+
