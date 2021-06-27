@@ -1,0 +1,135 @@
+---
+title: "`dplyr` Weekend Homework"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    df_print: paged
+    css: ../../../styles.css
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
+```
+<br>
+
+
+
+As this is your first weekend homework, here are some tips: 
+
+* Try to schedule some time in your weekend to work on the homework so it's not suddenly Monday morning and you haven't gotten started yet (it happens).
+* Remember that the weekend homework is for your learning, so try to use it as an opportunity to apply and consolidate everything you've learned in the week.
+* Also use it as an opportunity to spend a bit more time making your code readable and reproducible, by practising commenting and writing some text around your steps and findings. You will thank yourself later! 
+  * This will be especially useful for this specific weekend homework as it's very open-ended and you will eventually forget your own thought process
+* A bit obvious, but don't spend your entire weekend working on the homework! Remember to spend time doing things you enjoy and rest up ahead of the following week.
+
+The data for this weekend homework is scraped from Goodreads (a website all about books) and made publicly available on Kaggle. You can read more about the data [here](https://www.kaggle.com/jealousleopard/goodreadsbooks).
+
+# MVP
+
+### First steps
+
+Load necessary packages and read in `books.csv`. Investigate dimensions, variables, missing values - you know the drill!
+```{r}
+library(tidyverse)
+
+books <- read_csv("data/books.csv")
+```
+
+### Up to you
+
+Now it's up to you... For this weekend homework there will be no specific tasks, just you and this dataset! Using everything you've learned this week, try to describe/summarise at least 5 things about this dataset - using R and the tidyverse of course! Feel free to find and use new functions if there is something that the tidyverse doesn't offer, but do try to use this homework to apply what you have learned this week. Be prepared to share one of your findings on Monday!
+
+```{r}
+head(books, 10)
+glimpse(books)
+```
+
+Insight #1: looking for missing values
+```{r}
+books %>%
+  select(everything()) %>%
+  summarise_all(funs(sum(is.na(.))))
+```
+find the instance of an NA in the authors column
+```{r}
+books %>%
+  filter(is.na(authors)) 
+
+```
+remove the row with many NAs which has book id 40146
+```{r}
+books_clean1 <- books %>%
+  drop_na(authors) %>%
+  mutate(isbn13 = as.double(isbn13)) # change mis-categorized numeric data from data-type character to double
+books_clean1
+```
+
+
+investigate language_code column
+```{r}
+books_clean1 %>%
+  distinct(language_code) %>%
+  arrange(language_code) %>%
+  select(language_code) 
+  
+
+  
+```
+clean some of the data in the language column
+```{r}
+# want to remove the rows with numeric data as these are not language codes
+
+# want to consolidate some of the data into one (eng-US to eng), perhaps using recode
+books_clean2 <- books_clean1%>%
+  mutate(language_code = recode(language_code, "en-CA" = "eng")) %>%
+  mutate(language_code = recode(language_code, "en-GB" = "eng")) %>%
+  mutate(language_code = recode(language_code, "en-US" = "eng"))
+
+
+```
+
+Insight #2: most common publication language
+```{r}
+books_clean2 %>%
+  # then want to summarise the number of books for each language 
+    count(language_code) %>%
+    slice_max(n, n=5)
+```
+
+
+Insight #3: top 5 most published authors
+```{r}
+books_clean1 %>%
+  group_by(authors) %>%
+  summarise(number_books_written=n()) %>%
+  arrange(desc(number_books_written)) %>%
+  head(5)
+
+```
+
+Insight #4: most-reviewed authors
+```{r}
+# need to clean ratings_count data first
+
+```
+
+Insight #5: most and least popular books, by rating
+```{r}
+# need to clean average_rating data first.  was thinking of imputing missing values with average rating for that author.
+
+```
+
+Insight #6: book with shortest title
+```{r}
+books_clean1 %>%
+  mutate(title_length = nchar(title)) %>%
+  slice_min(title_length,n = 10) %>%
+  select(bookID, title, authors, title_length)
+
+```
+
+### Remember
+
+Before you submit, go through your weekend homework and make sure your code is following best practices as laid out in the `coding_best_practice` lesson.
