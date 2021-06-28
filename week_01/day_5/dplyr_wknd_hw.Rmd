@@ -52,6 +52,12 @@ books %>%
   select(everything()) %>%
   summarise_all(funs(sum(is.na(.))))
 ```
+```{r}
+books %>%
+  summarise(across(.fns = ~ sum(is.na(.x))))
+```
+
+
 find the instance of an NA in the authors column
 ```{r}
 books %>%
