@@ -145,6 +145,7 @@ whole_text %>%
 
 1.2 Count how often Big Brother is mentioned
 ```{r}
+# want to capture various instances of capitalisation format of the phrase
 pattern <- c("[bB][iI][gG] [bB][rR][oO][tT][hH][eE][rR]")
 
 whole_text %>% 
@@ -165,6 +166,9 @@ whole_text %>%
 
 1.4 Winston writes the date in a specific format: month nth, year eg. August 5th, 2019. Write a regular expression to match dates in that format and find the date written in his diary.
 ```{r}
+# finding month that begins with a capital, then has some lowercase text
+# finding the day with a space after the month followed by 2 lowercase character
+# find the 4-digit number for year, which follows a comma with a space
 pattern <- ("[A-Z][a-z]+ [0-9]+[a-z]{2}, [0-9]{4}")
 
 whole_text %>% 
@@ -174,12 +178,15 @@ whole_text %>%
 
 1.5 Winston wants some anonymity, redact his name somehow.
 ```{r}
-pattern <- ("[wW]inston")
+pattern_W <- ("[wW]inston")
 
-whole_text_redacted <- whole_text %>% 
-  str_replace_all(pattern, "REDACTED")
-whole_text_redacted
+whole_text %>% 
+  str_replace_all(pattern_W, "REDACTED") %>% 
+  # check that Winston is not there
+  str_detect(pattern_W)
 ```
+
+
 
 
 1.6 Stocks of Victory Gin have run out and the people of Oceania will have to drink vodka instead. Replace “gin” with “vodka”, matching case wherever possible. There’s still loads of Victory Coffee, though, so don’t replace that.
@@ -189,7 +196,7 @@ Gin_pattern <- (" Gin ")
 GIN_pattern <- (" GIN ")
 
 # checking that no other words such as "beginning"
-whole_text_redacted  %>% 
+whole_text  %>% 
   str_replace(gin_pattern, " vodka ") %>% 
   str_replace(Gin_pattern, " Vodka ") %>% 
   str_replace(GIN_pattern, " VODKA ") %>%
@@ -201,10 +208,15 @@ whole_text_redacted  %>%
 
 1.7 Big Brother is rebranding and has decided that the various ministries will now be known as departments. The old departments are now called sections. The Newspeak titles will use “Dep” instead of “Mini”.
 ```{r}
-pattern <- c("[dD]epartment")
+pattern1 <- ("[dD]epartment")
+pattern2 <- ("Mini?!stry") # all cases of Mini except Ministry.  E.g. Minitrue will be captured
 
-whole_text_redacted %>% 
-  str_replace(pattern, )
+whole_text %>% 
+  str_replace_all(regex("department", ignore_case = TRUE), "Sections")%>% # after this row has run, no occurrences of "Department" will remain in the text.
+  str_replace_all(pattern2, "Dep") %>% # after this row has run, we replace "Mini" with "Dep".
+    # check Ministry still exists 
+  str_extract_all("Section")
+  
 ```
 
 
