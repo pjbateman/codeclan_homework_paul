@@ -6,7 +6,6 @@ output:
     toc_float: true
     number_sections: true
     df_print: paged
-    css: ../../../styles.css
   pdf_document: default
 ---
 
@@ -128,100 +127,87 @@ He sat back in his chair, slightly ashamed of himself, and laid down the pen. Th
 Already! He sat as still as a mouse, in the futile hope that whoever it was might go away after a single attempt. But no, the knocking was repeated. The worst thing of all would be to delay. His heart was thumping like a drum, but his face, from long habit, was probably expressionless. He got up and moved heavily towards the door."
 ```
 
-1 Regular Expression Practice
-It’s time to look at regular expressions in the context of a much bigger block of text. Pull down the class notes and you’ll find an R notebook with a long passage in it – it’s the first chapter of 1984. In that notebook, use regular expressions to answer/do the following:
-
-1.1 Are the Thought Police ever mentioned?
 ```{r}
 library(tidyverse)
+```
 
-# thinking of whether there could be a lower case occurrence of 'thought police'
-pattern <- c("[tT]hought [pP]olice")
+Q1: Are the Thought Police ever mentioned?
 
-whole_text %>% 
+```{r}
+pattern <- "Thought Police"
+
+whole_text %>%
   str_detect(pattern)
 ```
 
+Q2: Count how often Big Brother is mentioned
 
-1.2 Count how often Big Brother is mentioned
 ```{r}
-# want to capture various instances of capitalisation format of the phrase
-pattern <- c("[bB][iI][gG] [bB][rR][oO][tT][hH][eE][rR]")
+pattern <- "[Bb][Ii][Gg] [Bb][Rr][Oo][Tt][Hh][Ee][Rr]"
 
-whole_text %>% 
-  str_count(pattern)
-    
-
+whole_text %>%
+  str_extract_all(pattern) %>%
+  flatten_chr() %>%
+  length()
 ```
 
+Q3: Is Julia ever mentioned by name?
 
-1.3 The chapter is written from the point of view of the protagonist, Winston. Does he ever mention the other main character (Julia) by name?
 ```{r}
-pattern <- c("[jJ]ulia")
+pattern <- "Julia"
 
-whole_text %>% 
+whole_text %>%
   str_detect(pattern)
 ```
 
+Q4: Match the date
 
-1.4 Winston writes the date in a specific format: month nth, year eg. August 5th, 2019. Write a regular expression to match dates in that format and find the date written in his diary.
 ```{r}
-# finding month that begins with a capital, then has some lowercase text
-# finding the day with a space after the month followed by 2 lowercase character
-# find the 4-digit number for year, which follows a comma with a space
-pattern <- ("[A-Z][a-z]+ [0-9]+(th|rd|st|nd), [0-9]{4}")
-
-whole_text %>% 
+pattern <- "[A-Z][a-z]+ [0-9]+(th|rd|st|nd), [0-9]{4}"
+whole_text %>%
   str_extract(pattern)
 ```
 
+Q5: Redact Winston's name
 
-1.5 Winston wants some anonymity, redact his name somehow.
 ```{r}
-pattern_W <- ("[wW]inston")
+pattern <- "Winston"
 
-whole_text %>% 
-  str_replace_all(pattern_W, "REDACTED") %>% 
-  # check that Winston is not there
-  str_detect(pattern_W)
+whole_text <- whole_text %>%
+  str_replace_all(pattern, "REDACTED")
+
+#check that there are no winstons mentioned
+whole_text %>%
+  str_detect(pattern)
+
+# check that redacted is mentioned
+pattern2 <- "REDACTED"
+whole_text %>%
+  str_detect(pattern2)
 ```
 
+Q6: Replace Victory Gin with Victory Vodka
 
-
-
-1.6 Stocks of Victory Gin have run out and the people of Oceania will have to drink vodka instead. Replace “gin” with “vodka”, matching case wherever possible. There’s still loads of Victory Coffee, though, so don’t replace that.
 ```{r}
-pattern <- "[ ,.-][gG][iI][nN][ ,.-]" # alternative approach
+# check case where gin appears (want to make sure is the word gin, and not 'gin' in the middle of another word (e.g. beginning)
+pattern <- "[ ,.-][gG][iI][nN][ ,.-]"
 
-gin_pattern <- (" gin ")
-Gin_pattern <- (" Gin ")
-GIN_pattern <- (" GIN ")
+whole_text %>%
+  str_extract_all(pattern) %>%
+  flatten_chr()
 
-# checking that no other words such as "beginning"
-whole_text  %>% 
-  str_replace(gin_pattern, " vodka ") %>% 
-  str_replace(Gin_pattern, " Vodka ") %>% 
-  str_replace(GIN_pattern, " VODKA ") %>%
-  # check that no gin is left
-  str_detect(" [gG][iI][nN] ")
 
 ```
 
-
-1.7 Big Brother is rebranding and has decided that the various ministries will now be known as departments. The old departments are now called sections. The Newspeak titles will use “Dep” instead of “Mini”.
 ```{r}
-pattern1 <- ("[dD]epartment")
-pattern2 <- ("Mini?!stry") # all cases of Mini except Ministry.  E.g. Minitrue will be captured
-
-whole_text %>% 
-  str_replace_all(regex("department", ignore_case = TRUE), "Sections")%>% # after this row has run, no occurrences of "Department" will remain in the text.
-  str_replace_all(pattern2, "Dep") %>% # after this row has run, we replace "Mini" with "Dep".
-    # check Ministry still exists 
-  str_extract_all("Section")
-  
+whole_text <- whole_text %>%
+  str_replace_all(" GIN.", " VODKA.") %>%
+  str_replace_all(" gin.", " vodka.") %>%
+  str_replace_all(" gin ", " vodka ")
 ```
 
-official solution
+Q7: Rebranding
+
 ```{r}
 whole_text <- whole_text %>%
   str_replace_all("Department", "Section") %>%
@@ -230,10 +216,22 @@ whole_text <- whole_text %>%
   str_replace_all("Mini", "Dep")
 ```
 
+```{r}
+whole_text
+```
 
-2 Hints
-Remember that you can use different functions to test your regular expressions before using them to change things.
 
-If you make a change and want to undo it, you can always re-run the first code block to restore the original text
+```{r}
+pattern1 <- " gin "
+pattern2 <- " Gin "
+pattern3 <- " GIN "
+replace_with1 <- " vodka "
+replace_with2 <- " Vodka "
+replace_with3 <- " VODKA "
+test <- whole_text %>% 
+  str_replace(c(pattern1, pattern2, pattern3),
+              c(pattern1 = replace_with1,
+                pattern2 = replace_with2,
+                pattern3 = replace_with3))
+```
 
-The order in which you do things will be important for some tasks!

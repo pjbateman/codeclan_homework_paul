@@ -40,11 +40,23 @@ The overall goal of the homework is to practice everything you've learnt this we
 
 **Question 1.**  
 Load the `code_clan_tweets.csv` data. Find the number of rows, columns, and list all the variable names. 
+```{r}
+library(tidyverse)
+tweets <- read_csv("data/code_clan_tweets.csv")
+nrow(tweets)
+ncol(tweets)
+names(tweets)
+
+```
 
 <br>
 
 **Question 2.**  
 Find the total number of favourites (stored in `favorite_count`) that CodeClan tweets have got. Don't add a tweet's `favorite_count` to the total when the tweet was quoted (see the `is_quote` variable). 
+```{r}
+tweets %>% 
+  
+```
 
 <br>
 
