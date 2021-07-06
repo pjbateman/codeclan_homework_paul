@@ -138,9 +138,9 @@ FROM employees;
 --
 --Question 16.
 --The corporation wants to make name badges for a forthcoming conference. Return a column badge_label showing employees’ first_name and last_name joined together with their department in the following style: ‘Bob Smith - Legal’. Restrict output to only those employees with stored first_name, last_name and department.
---
---
---
+
+
+
 --Question 17.
 --One of the conference organisers thinks it would be nice to add the year of the employees’ start_date to the badge_label to celebrate long-standing colleagues, in the following style ‘Bob Smith - Legal (joined 1998)’. Further restrict output to only those employees with a stored start_date.
 --
@@ -150,11 +150,32 @@ FROM employees;
 --Do some research on the SQL EXTRACT() function.
 --For the extension to the extension (!), the PostgreSQL TO_CHAR() function might help.
 --To be honest, date and time handling is one of the areas in which the functionality of specific RDBMSs deviates most notably from the ANSI SQL standard.
---
---
+SELECT 
+	first_name,
+	last_name, 
+	department,
+	TO_CHAR(start_date, 'DL') AS month,
+	CONCAT(
+		first_name, ' ', last_name, ' - ', department, ' (joined ',
+	EXTRACT(YEAR FROM start_date), ')'
+	) AS badge_label
+FROM employees;
+
 --Question 18.
 --Return the first_name, last_name and salary of all employees together with a new column called salary_class with a value 'low' where salary is less than 40,000 and value 'high' where salary is greater than or equal to 40,000.
 --
 --Hints
 --Investigate how to use a SQL CASE statement to return the required values 'low' and 'high' based on the value of salary.
 --Think carefully how to deal with NULL salaries.
+
+SELECT 
+	first_name,
+	last_name,
+	salary,
+	CASE
+		WHEN salary < 40000 THEN 'low'
+		WHEN salary >= 40000 THEN 'high'
+		ELSE NULL
+	END
+	AS salary_class
+FROM employees;
