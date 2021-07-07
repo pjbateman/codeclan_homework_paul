@@ -19,7 +19,7 @@ SELECT
 	t.name AS team_name
 FROM employees AS e LEFT JOIN teams AS t 
 	ON e.team_id = t.id
-WHERE pension_enrol IS NOT NULL;
+WHERE pension_enrol = TRUE;
 
 
 --(c). Find the first name, last name and team name of employees who are members of teams, where their team has a charge cost greater than 80.
@@ -44,10 +44,10 @@ WHERE CAST(t.charge_cost AS INT4) > 80;
 --What sort of JOIN is needed if we want details of all employees, even if they don’t have stored local_account_no and local_sort_code?
 SELECT
 	e.*,
-	p.local_account_no,
-	p.local_sort_code
-FROM employees AS e LEFT JOIN pay_details AS p 
-	ON e.pay_detail_id = p.id ;
+	pd.local_account_no,
+	pd.local_sort_code
+FROM employees AS e LEFT JOIN pay_details AS pd  
+	ON e.pay_detail_id = pd.id ;
 
 
 --(b). Amend your query above to also return the name of the team that each employee belongs to.
@@ -57,8 +57,8 @@ FROM employees AS e LEFT JOIN pay_details AS p
 SELECT
 	e.*,
 	t.name AS team_name
-FROM employees AS e LEFT JOIN pay_details AS p 
-	ON e.pay_detail_id = p.id 
+FROM employees AS e LEFT JOIN pay_details AS pd  
+	ON e.pay_detail_id = pd.id 
 	LEFT JOIN teams AS t 
 	ON e.team_id = t.id ;
 --Question 3.
@@ -131,13 +131,21 @@ HAVING (CAST(t.charge_cost AS INT4) * COUNT(e.id)) > 5000;
 --All of the details of membership of committees is held in a single table: employees_committees, so this doesn’t require a join.
 --
 --Some employees may serve in multiple committees. Can you find the number of distinct employees who serve? [Extra hint - do some research on the DISTINCT() function].
---
---
+SELECT 
+  COUNT(DISTINCT(employee_id)) AS num_employees_on_committees
+FROM employees_committees;
+
 --Question 6.
 --How many of the employees do not serve on a committee?
---
---
+
+
 --Hints
 --This requires joining over only two tables
 --
 --Could you use a join and find rows without a match in the join?
+SELECT 
+	COUNT(*) AS num_not_in_committees
+FROM employees e 
+LEFT JOIN employees_committees ec 
+ON e.id = ec.employee_id 
+WHERE ec.employee_id IS NULL ;
