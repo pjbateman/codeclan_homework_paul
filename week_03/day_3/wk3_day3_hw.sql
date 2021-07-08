@@ -214,8 +214,50 @@ ORDER BY department
 --Writing a CTE to calculate the name, average salary and average fte_hours of the largest department is an efficient way to do this.
 --
 --Another solution might involve combining a subquery with window functions.
---
---
+
+-- CTE solution
+WITH biggest_dept_details(name, avg_salary, avg_fte_hours) AS (
+  SELECT 
+     department,
+     AVG(salary),
+     AVG(fte_hours)
+  FROM employees
+  GROUP BY department
+  ORDER BY COUNT(id) DESC NULLS LAST
+  LIMIT 1
+)
+SELECT
+  e.id,
+  e.first_name,
+  e.last_name,
+  e.department,
+  e.salary,
+  e.fte_hours,
+  e.salary / bdd.avg_salary AS salary_over_dept_avg,
+  e.fte_hours / bdd.avg_fte_hours AS fte_hours_over_dept_avg
+FROM employees AS e INNER JOIN biggest_dept_details AS bdd
+ON  e.department = bdd.name
+
+-- Window function solution
+SELECT 
+    id, 
+    first_name, 
+    last_name, 
+    department,
+    sala	ry,
+    fte_hours,
+    salary / AVG(salary) OVER () AS salary_over_dept_avg,
+    fte_hours / AVG(fte_hours) OVER () AS fte_hours_over_dept_avg
+FROM employees
+WHERE department = (
+  SELECT
+    department
+  FROM employees
+  GROUP BY department
+  ORDER BY COUNT(id) DESC NULLS LAST
+  LIMIT 1
+);
+
 --Question 18.
 --Have a look again at your table for MVP question 8. It will likely contain a blank cell for the row relating to employees with ‘unknown’ pension enrollment status. This is ambiguous: it would be better if this cell contained ‘unknown’ or something similar. Can you find a way to do this, perhaps using a combination of COALESCE() and CAST(), or a CASE statement?
 --
