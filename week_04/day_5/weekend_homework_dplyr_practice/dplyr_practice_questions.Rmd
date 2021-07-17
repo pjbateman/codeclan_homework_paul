@@ -1,0 +1,191 @@
+---
+title: "`dplyr` Practice Homework"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    df_print: paged
+    css: ../../styles.css
+  pdf_document: default
+---
+
+```{r}
+library(tidyverse)
+library(dplyr)
+```
+
+# Using the `dplyr` verbs
+
+Use the `salaries.csv` dataset to answer the following questions:
+```{r}
+salaries <- read_csv("data/salaries.csv")
+```
+
+
+1.	Use `select` to see the beginning salary variable and the current salary variable.
+```{r}
+salaries_q1 <- salaries %>% 
+  select(beginning_salary, current_salary)
+head(salaries_q1)
+```
+
+
+2.	Use `filter` to see the employees aged over 50, who have a salary over £20,000.
+```{r}
+salaries_q2 <- salaries %>% 
+  filter(
+    age > 50,
+    current_salary > 20000
+  )
+head(salaries_q2)  
+```
+
+
+3.	Use `arrange` to order by the data so that the highest salaries are first.
+```{r}
+salaries_q3 <- salaries %>% 
+  arrange(
+    desc(current_salary)
+  )
+head(salaries_q3) 
+```
+
+
+4.	Use `mutate` to make a new variables beginning_salary_pence and current_salary_pence. These should have the corresponding salaries in pence instead of pounds.
+```{r}
+salaries_q4 <- salaries %>% 
+  mutate(
+    beginning_salary_pence = 100 * beginning_salary,
+    current_salary_pence = 100 * current_salary
+  )
+head(salaries_q4) 
+```
+
+5.	Use `summarise` to find the maximum age and the minimum age.
+```{r}
+salaries_q5 <- salaries %>% 
+  summarise(
+    max_age = max(age),
+    min_age = min(age)
+  )
+salaries_q5
+```
+
+6.	Find the minimum salary and the maximum salary.
+```{r}
+salaries_q6 <- salaries %>% 
+  summarise(
+        min_salary = min(current_salary),
+        max_salary = max(current_salary)
+  )
+salaries_q6
+```
+
+7.	Find all the employees aged under 30.
+```{r}
+salaries_q7 <- salaries %>% 
+  filter(
+    age < 30
+  )
+head(salaries_q7) 
+```
+
+8.	Order the data in terms of increasing educational level where ties are broken using age.
+```{r}
+salaries_q8 <- salaries %>% 
+  arrange(educational_level, age)
+salaries_q8
+```
+
+9.	Drop all the non-numeric variables in the tibble.
+```{r}
+salaries_q9 <- drop_na(salaries)
+  
+head(salaries_q9) 
+```
+
+10.	Find all employees with either less than 2 years work experience or an education level below 12.
+```{r}
+salaries_q10 <- salaries %>% 
+  filter(
+    work_experience < 2 |
+    educational_level < 12
+  )
+salaries_q10
+```
+
+11.	Transform the salary variables so they measure how many 1000s of pounds each salary is.
+```{r}
+salaries_q11 <- salaries %>% 
+  mutate(
+    current_salary = current_salary / 1000,
+    beginning_salary = beginning_salary / 1000
+  )
+head(salaries_q11) 
+```
+
+
+12.	Find all the females employees with an employment category of 'security officer'.
+```{r}
+salaries_q12 <- salaries %>% 
+  filter(
+    gender == "female",
+    employment_category == "security officer"
+  )
+head(salaries_q12) 
+```
+
+
+# Pipes
+
+Again, answer these questions using the `salaries.csv` dataset:
+
+1.	Find the average salary per educational level, for educational levels of 16 and below. Arrange the results from highest salary to lowest. Answer using pipes.
+```{r}
+avg_salary_per_education_level <- salaries %>% 
+  group_by(educational_level) %>% 
+  summarise(avg_salary = mean(current_salary))
+  
+avg_salary_per_education_level
+```
+
+
+2.	Find the average salary for each gender in each employment category. Exclude any employees with less than 2 years of work experience. Answer using pipes.
+```{r}
+avg_salary_by_gender <- salaries %>% 
+  filter(work_experience >= 2) %>% 
+  group_by(employment_category, gender) %>% 
+  summarise(avg_salary = mean(current_salary))
+  
+avg_salary_by_gender
+```
+
+3.	For each employment category find the difference between the mean salary and the median salary. Arrange so that the greatest difference comes first. Answer using pipes. (The difference between mean salary and median salary gives us a measure of how skewed salaries - we'll come on to this shortly!)
+```{r}
+salary_diff <- salaries %>% 
+  group_by(employment_category) %>% 
+  summarise(salary_difference = mean(current_salary) - median(current_salary)) %>% 
+  arrange(desc(salary_difference))
+  
+head(salary_diff)
+```
+
+
+# Missing values exercise
+
+In this exercise we will be looking at the beer calorie data (dataset `beer.txt`). To read this data, use the `read_delim()` function, specifying `;` as the delimiter.
+
+1.	Find all the observations where the carbohydrates are missing.
+2.	Find all the observations where the brand is missing.
+3.	What is different about the observations missing carbohydrates and the observations missing brand? To clean the data should we drop the rows missing brand or the rows missing carbohydrates?
+
+# Recoding excercise 
+
+Use the dataset `inmates.tsv` for these questions. Investigate a function to read data in this format.
+
+<details>
+<summary>**Hint**</summary>
+`read_tsv()`
+</details>
+<br>
