@@ -65,7 +65,7 @@ ggplot(rev) +
     panel.background = element_rect(fill = "white"),
     panel.grid.major = element_line(colour = "grey98")
     ) +
-  scale_colour_manual(values = col_scheme)
+  scale_fill_manual(values = col_scheme)
 ```
 
 
@@ -87,6 +87,7 @@ ggplot(unit1_sales) +
     panel.background = element_rect(fill = "white"),
     panel.grid.major = element_line(colour = "grey98")
     ) +
+  scale_y_continuous("Sales", labels = scales::dollar_format(prefix = "£")) +
   scale_colour_manual(values = col_scheme)
 ```
 
@@ -109,7 +110,8 @@ ggplot(q3_sales) +
     panel.background = element_rect(fill = "white"),
     panel.grid.major = element_line(colour = "grey98")
     ) +
-  scale_colour_manual(values = col_scheme)
+  scale_colour_manual(values = col_scheme) +
+  scale_y_continuous("Sales", labels = scales::dollar_format(prefix = "£"))
 ```
 
 4.	Show annual sales of personal fitness trackers over the last 5 years broken down by company as a ribbon plot (use `geom_area`). This data is in `qb_competitors`.
@@ -119,10 +121,10 @@ competitors <- competitors %>%
 
 ggplot(competitors) +
   geom_area(
-    aes(x = Year, y = sales_thousands, colour = Company)) +
+    aes(x = Year, y = sales_thousands, fill = Company)) +
   ggtitle("annual sales of personal fitness trackers"
   ) +
-  scale_y_continuous(labels = scales::comma) +
+  scale_y_continuous(labels = scales::dollar) +
   theme(
     title = element_text(size = 13),
     axis.title = element_text(size = 11),
@@ -130,17 +132,18 @@ ggplot(competitors) +
     panel.background = element_rect(fill = "white"),
     panel.grid.major = element_line(colour = "grey98")
     ) +
-  scale_colour_manual(values = col_scheme)
+  scale_fill_manual(values = col_scheme)
 ```
 
 5. Now show the sales from the four competitors as a line graph. Include an extra layer that shows the data points used to make the lines.
 ```{r}
 ggplot(competitors) +
-  geom_line(aes(x = Year, y = sales_thousands, colour = Company), alpha = 0.25) +
-  geom_point(aes(x = Year, y = sales_thousands, colour = Company), alpha = 0.5) +
+  aes(x = Year, y = Revenue, colour = Company) +
+  geom_line() +
+  geom_point() +
   ggtitle("annual sales of personal fitness trackers"
   ) +
-  scale_y_continuous(labels = scales::comma) +
+  scale_y_continuous(labels = scales::dollar) +
   theme(
     title = element_text(size = 13),
     axis.title = element_text(size = 11),
@@ -154,13 +157,17 @@ ggplot(competitors) +
 
 6. Now the company wants to compare the number of steps that their device counts vs. their competitors. Make a line graph of the number of steps throughout time, and use faceting to compare between companies and people. The data for this is in `qb_device_data`.
 ```{r}
+device <-
+  mutate(device, decimal_hour = hours + (mins/60))
+
 ggplot(device) +
-  geom_line(aes(x = hours, y = counts, group = id, colour = device), alpha = 0.25) +
-    facet_wrap(~device, scales = 'free_y', labeller = label_both) +
-    scale_x_continuous(breaks = 4:24, limits = c(4, 24)) + 
+  aes(x = decimal_hour, y = counts, colour = device) +
+  geom_line() +
+    facet_grid(id ~ device) +
+     scale_x_continuous("Time (hours)") + 
+  scale_y_continuous("Steps")  +
     ggtitle("step count by devices"
   ) +
-  scale_y_continuous(labels = scales::comma) +
   theme(
     title = element_text(size = 13),
     axis.title = element_text(size = 11),
