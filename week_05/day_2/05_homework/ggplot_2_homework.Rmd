@@ -1,0 +1,159 @@
+---
+title: "Introduction to `ggplot2` homework"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    df_print: paged
+    css: ../../../styles.css
+    pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
+```
+
+# Homework Info
+
+This homework recaps what you learnt in class today. 
+
+You'll be looking at the `backpack` dataset contained within the `CodeClanData` package using tidyverse. You'll need to load the appropriate packages first.In all plots you make, ensure your labels are appropriate 
+
+**You must write down a short summary of what each plot tells you in order to meet MVP.** Being an analyst is not just the ability to write code, you need to be able to interpret the visualisations and translate the relationships found (or not found) into plain language to explain to non-technical decision makers. Getting as much practice of this as you can while on this course is just (if not more!) important than the code!
+
+
+
+# MVP
+
+<br>
+
+**Question 1.**  
+
+Load in the libraries you need, and look at the `backpack` data. Take note of variable names and dimensions.   
+```{r}
+library(tidyverse)
+library(CodeClanData)
+```
+```{r}
+q1_backpack <- backpack
+```
+The backpack dataset contains information about students and backpacks they carry when attending their studies.  The weights of the students and the backpacks are observed, as well as back ailments experience by the students, and supplementary categorical variables such as field of study, gender etc.  The data set covers 100 students across 8 independent variables, and one variable derived from the ratio of backpack weight to body weight.
+
+**Question 2.**
+
+What is the distribution of backpack weights that students are carrying? Choose an appropriate graph to show the distribution. 
+
+```{r}
+q2_max <- q1_backpack %>% 
+  slice_max(backpack_weight, n = 1) %>% 
+  select(backpack_weight) %>% 
+  pull
+
+q2_min <- q1_backpack %>% 
+  slice_min(backpack_weight, n = 1, with_ties = FALSE) %>% 
+  select(backpack_weight) %>% 
+  pull
+
+q1_backpack %>% 
+  ggplot() +
+  aes(x = backpack_weight) +
+  geom_histogram(bins = 35, col = "white") +
+  scale_y_continuous(breaks = 0:12)
+```
+
+
+```{r}
+paste("The distribution of backpack weights that students are carrying ranges from",q2_min,"to",q2_max,"pounds.")
+```
+
+**Question 3.**  
+
+Are there differences in backpack weight between sex?   
+```{r}
+ggplot(q1_backpack) +
+  aes(x = backpack_weight, y = "count", fill = sex) +
+  geom_col() + 
+  scale_x_continuous(breaks = 0:35) +
+  labs(y = "count", fill = "sex")
+```
+
+
+**Question 4.**  
+
+What is the relationship between body weight and backpack weight?
+```{r}
+ggplot(q1_backpack) +
+  aes(body_weight, backpack_weight) +
+  geom_point()
+
+```
+The is a broadly positive relationship between body weight and backpack weight.  The heavier the student, the more they carry.  Since body weight is a key factor in determining anaerobic fitness, this would suggest that students who are _able_ to carry more weight choose to do so, though it is not known what the nature of this extra baggage relates to (e.g. books, food, clothing). 
+
+**Question 5.**  
+
+Is this relationship different between men and women? Choose an appropriate plot and interpret your findings.  
+```{r}
+ggplot(q1_backpack) +
+  aes(body_weight, backpack_weight, colour = sex) +
+  geom_point()
+
+```
+The is not a clear relationship that males carry more weight than females, despite being heavier in general, and therefore possessing greater capacity to carry weight.  Indeed, the data would suggest that females are fitter since they weight less than males in general, but carry a similar amount of weight in their backpacks.
+
+**Question 6.**  
+
+What **proportion** of students report back pain?   
+```{r}
+q1_backpack <- q1_backpack %>% 
+  mutate(prognosis = recode(back_problems, "0" = "no back problem", "1" = "back hurts!"))
+
+ggplot(q1_backpack) +
+  aes(x= prognosis, fill = prognosis) +
+  geom_bar(show.legend = FALSE)
+```
+Around twice as many students have back problems as do have problems.  This implies though that around a third of the students _do_ have some sort of back problem.  This may not be related to backpack carrying behaviour however.
+
+**Question 7.**  
+
+Is this proportion different between men and women? 
+```{r}
+ggplot(q1_backpack) +
+  aes(x= prognosis, fill = sex) +
+  geom_bar(show.legend = TRUE)
+```
+It would seem from the data that more females are enduring back pain than males.  This may be because they appear to be carrying more weight than names, relative to their body weight, which we observed earlier.
+
+**Question 8.**  
+
+Now you've investigated your data separately, create plots to describe the relationship between backpack weight, body weight, gender and reported backpain.
+
+Try both `backpack_weight` and `body_weight` as well as the `ratio`.   
+
+*Hint: faceting would be useful here*.   
+
+```{r}
+ggplot(q1_backpack) + 
+  aes(x = ratio, fill = sex) +
+  geom_histogram() +
+  scale_x_continuous(
+    breaks = 1:13,
+    limits = c(0, 0.2)) +
+  facet_grid(prognosis ~ sex)
+```
+The chart indicates that more weight is being carried, relative the bodyweight, the greater incidence of back problems.
+
+# Extensions
+
+<br>
+
+**Question 1.** 
+
+Does reported backpain differ across the year groups? Ignore year 0 in your data.  
+
+
+**Question 2.** 
+
+Is there a difference between how heavy the bags those in different years carry?
+
+
