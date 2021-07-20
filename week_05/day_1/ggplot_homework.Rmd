@@ -36,8 +36,8 @@ Take a little time before you start to familiarise yourself with the data.
 
 ```{r}
 devtools::install_github('codeclan/CodeClanData')
-
 library(CodeClanData)
+library(tidyverse)
 
 rev <- CodeClanData::qb_revenue_breakdown
 sales <- CodeClanData::qb_monthly_sales
