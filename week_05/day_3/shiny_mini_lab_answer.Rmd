@@ -1,0 +1,148 @@
+---
+title: "Shiny Basics & Advanced UI Practice"
+output:
+  pdf_document:
+    number_sections: no
+    toc: no
+  html_document:
+    df_print: paged
+    toc: yes
+    toc_float: yes
+    css: ../../styles.css
+---
+
+We want to create a new Shiny app which lets you compare the medal count between our top 5 countries. You'll need to start a new project that contains the olympics data used today. The five countries we want you to focus on are: "United States", "Soviet Union", "Germany", "Italy" and "Great Britain".  
+
+
+## Create the layout
+
+Create a sidebar layout, with the title 'Five Country Medal Comparison'.
+
+## Add inputs
+
+Create two sets of radio buttons, one with ID "season" the other with ID "medal", that let you pick between the two seasons (Winter or Summer) and the three medal types (Gold, Silver or Bronze) respectively.
+
+## Add outputs
+
+Add the following plot to the output, but with inputs that depend on the two radio buttons. (Hint: you want to change the code where it says `<INPUT>`)
+
+\hfill 
+
+```{r, eval = FALSE}
+olympics_overall_medals %>%
+  filter(team %in% c("United States",
+                  "Soviet Union",
+                  "Germany",
+                  "Italy",
+                  "Great Britain")) %>%
+  filter(medal == <INPUT>) %>%
+  filter(season == <INPUT>) %>%
+ggplot() +
+  aes(x = team, y = count) +
+  geom_col()
+```
+
+\hfill
+
+## Adding colour
+
+This one may be a bit more tricky! Make the colour of the bars depend on the type of medal that's being compared.
+
+**Hint:** You can use the ggplot function `scale_fill_manual()` inside `renderPlot`.
+
+## Advanced UI
+
+Use some of the tools learnt in the 'Advanced UI' lesson to make some changes, for example:
+
+* Using HTML to change some of the font
+* Use a different layout (such as grid)
+* Adding more than 1 tab
+* Changing the theme (from `shinythemes` or your own CSS stylesheet)
+
+\hfill 
+
+**Answer**
+
+\hfill 
+
+```{r, eval = FALSE}
+library(shiny)
+library(shinythemes)
+library(tidyverse)
+
+olympics_overall_medals <- read_csv("../../data/olympics_overall_medals.csv")
+
+ui <- fluidPage(
+  
+  titlePanel(tags$b("Five Country Medal Comparison")),
+  
+  theme = shinytheme("sandstone"),
+  
+  fluidRow(
+    column(
+      6,
+      radioButtons("season_input",
+        tags$i("Summer or Winter Olympics?"),
+        choices = c("Summer", "Winter")
+      )
+    ),
+    column(
+      6,
+      radioButtons("medal_input",
+        tags$i("Compare Which Medals?"),
+        choices = c("Gold", "Silver", "Bronze")
+      )
+    )
+  ),
+
+  fluidRow(
+
+    tabsetPanel(
+      tabPanel(
+        "Plot",
+        plotOutput("medal_plot")
+      ),
+      tabPanel(
+        "Text",
+        "This is some text in a different tab."
+      )
+    )
+  )
+)
+
+
+server <- function(input, output) {
+  output$medal_plot <- renderPlot({
+
+    olympics_overall_medals %>%
+      filter(team %in% c(
+        "United States",
+        "Soviet Union",
+        "Germany",
+        "Italy",
+        "Great Britain"
+      )) %>%
+      filter(medal == input$medal_input) %>%
+      filter(season == input$season_input) %>%
+      ggplot() +
+      aes(x = team, y = count, fill = medal) +
+      geom_col() +
+      scale_fill_manual(values = c("Gold" = "#D4AF37",
+                                   "Silver" = "#C0C0C0",
+                                   "Bronze" = "#B08D57"))
+  })
+}
+
+shinyApp(ui = ui, server = server)
+
+
+```
+
+
+\hfill 
+
+## Make an app of your choice
+
+We have uploaded a lot of data to the data folder within the server. Have a go at reading some data in, and making a simple app from it that picks out a key insight. It can be any layout you prefer, and can be as detailed design wise as you want. The main point is to find something interesting. 
+
+
