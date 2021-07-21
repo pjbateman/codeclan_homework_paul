@@ -72,10 +72,11 @@ paste("The distribution of backpack weights that students are carrying ranges fr
 Are there differences in backpack weight between sex?   
 ```{r}
 ggplot(q1_backpack) +
-  aes(x = backpack_weight, y = "count", fill = sex) +
-  geom_col() + 
+  aes(x = backpack_weight, fill = sex) +
+  geom_histogram() + 
   scale_x_continuous(breaks = 0:35) +
-  labs(y = "count", fill = "sex")
+  labs(y = "count", fill = "sex") +
+  facet_wrap(~ sex, nrow = 2)
 ```
 
 
@@ -113,6 +114,15 @@ ggplot(q1_backpack) +
   geom_bar(show.legend = FALSE)
 ```
 Around twice as many students have back problems as do have problems.  This implies though that around a third of the students _do_ have some sort of back problem.  This may not be related to backpack carrying behaviour however.
+
+Alternative way
+```{r}
+ggplot(q1_backpack) +
+  aes(x = "", fill = prognosis) + 
+  geom_bar(position = "fill") +
+  scale_fill_manual(values=c('#f0ca41', '#5022bd'))
+```
+
 
 **Question 7.**  
 
