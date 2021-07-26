@@ -1,0 +1,89 @@
+---
+title: "Titanic homework with probability"
+output: html_notebook
+---
+
+```{r}
+library(prob)
+library(gtools)
+library(tidyverse)
+
+titanic <- read_csv("data/titanic.csv")
+
+unique(titanic$class)
+```
+```{r}
+# create a `crew` column containing values `TRUE` or `FALSE`
+crew <- c("engineering crew", "victualling crew", "restaurant staff", "deck crew")
+titanic <- titanic %>% 
+  mutate(crew = if_else(class %in% crew, TRUE, FALSE))
+  
+```
+
+prob( survived ∣ crew )  
+```{r}
+p_survived_crew  <- titanic %>% 
+  filter(survived == "yes", crew == TRUE) %>% 
+    summarise(p = n()/nrow(titanic))
+p_survived_crew
+```
+
+
+prob( survived ∣ passenger ) 
+```{r}
+p_survived_passenger  <- titanic %>% 
+  filter(survived == "yes", crew == FALSE) %>% 
+    summarise(p = n()/nrow(titanic))
+p_survived_passenger
+```
+
+If I roll a six-sided dice once, what is the probability of getting a number less than 5?
+```{r}
+s <- rolldie(1)
+(size_s <- nrow(s))
+
+less_than_five <- s %>% 
+  dplyr::filter(X1  < 5)
+(size_less_than_five <- nrow(less_than_five))
+
+prob_less_than_five <- size_less_than_five / size_s
+prob_less_than_five
+```
+
+2. How many outcomes are there in the sample space of an experiment in which we toss three dice?
+
+```{r}
+6^3
+```
+216 outcomes in the sample set
+
+4. Five chairs are placed in a row in a room, along with five people of differing height. The people sit down randomly on the chairs. What is the probability that they sit in order of decreasing height, left to right?
+
+Hint This is an arrangement where order matters. Of all the possible arrangements, how many are correct?
+```{r}
+people <- c("A", "B", "C", "D", "E")
+
+chair_permu <- as_tibble(
+  permutations(
+    n = 5,
+    r = 5,
+    v = people,
+    repeats.allowed = FALSE)
+)
+
+nrow(chair_permu)
+```
+
+Only one correct seating is possible.
+The probability of this outcome is 1/120
+
+6. If I draw a single card from a 52-card deck, and it is black, what is the probability that its suit is spades?
+
+Hints
+
+Investigate the cards() function in the prob package, if you’d like to try this in R (make a deck without jokers).
+You could think about adding your own black_card random variable to the sample space, which would be TRUE if the suit is ‘Spade’ or ‘Club’, and FALSE otherwise.
+```{r}
+cards()
+```
+
