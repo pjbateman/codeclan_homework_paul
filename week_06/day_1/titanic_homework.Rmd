@@ -20,6 +20,12 @@ titanic <- titanic %>%
   
 ```
 
+```{r}
+titanic %>%
+  count(crew)
+```
+
+
 prob( survived ∣ crew )  
 ```{r}
 p_survived_crew  <- titanic %>% 
@@ -72,10 +78,22 @@ chair_permu <- as_tibble(
 )
 
 nrow(chair_permu)
+
+1/nrow(chair_permu)
 ```
 
 Only one correct seating is possible.
 The probability of this outcome is 1/120
+
+Other solution:
+```{r}
+# number of ordered arrangements:
+num_outcomes <- factorial(5)
+# only one of these is correctly ordered:
+prob_perfect_order <- 1/num_outcomes
+prob_perfect_order
+```
+
 
 6. If I draw a single card from a 52-card deck, and it is black, what is the probability that its suit is spades?
 

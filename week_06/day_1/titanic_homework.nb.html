@@ -245,26 +245,26 @@ The following objects are masked from ‘package:base’:
 <pre class="r"><code>library(gtools)
 library(tidyverse)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUmVnaXN0ZXJlZCBTMyBtZXRob2RzIG92ZXJ3cml0dGVuIGJ5ICdkYnBseXInOlxuICBtZXRob2QgICAgICAgICBmcm9tXG4gIHByaW50LnRibF9sYXp5ICAgICBcbiAgcHJpbnQudGJsX3NxbCAgICAgIFxu4pSA4pSAIEF0dGFjaGluZyBwYWNrYWdlcyDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAgdGlkeXZlcnNlIDEuMy4xIOKUgOKUgFxu4pyTIGdncGxvdDIgMy4zLjUgICAgIOKckyBwdXJyciAgIDAuMy40XG7inJMgdGliYmxlICAzLjEuMiAgICAg4pyTIGRwbHlyICAgMS4wLjdcbuKckyB0aWR5ciAgIDEuMS4zICAgICDinJMgc3RyaW5nciAxLjQuMFxu4pyTIHJlYWRyICAgMS40LjAgICAgIOKckyBmb3JjYXRzIDAuNS4xXG7ilIDilIAgQ29uZmxpY3RzIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgCB0aWR5dmVyc2VfY29uZmxpY3RzKCkg4pSA4pSAXG54IGRwbHlyOjpmaWx0ZXIoKSBtYXNrcyB0aW1lU2VyaWVzOjpmaWx0ZXIoKSwgc3RhdHM6OmZpbHRlcigpXG54IGRwbHlyOjpsYWcoKSAgICBtYXNrcyB0aW1lU2VyaWVzOjpsYWcoKSwgc3RhdHM6OmxhZygpXG4ifQ== -->
+<!-- rnb-output-begin eyJkYXRhIjoiUmVnaXN0ZXJlZCBTMyBtZXRob2RzIG92ZXJ3cml0dGVuIGJ5ICdkYnBseXInOlxuICBtZXRob2QgICAgICAgICBmcm9tXG4gIHByaW50LnRibF9sYXp5ICAgICBcbiAgcHJpbnQudGJsX3NxbCAgICAgIFxu4pSA4pSAIEF0dGFjaGluZyBwYWNrYWdlcyDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAgdGlkeXZlcnNlIDEuMy4xIOKUgOKUgFxu4pyTIGdncGxvdDIgMy4zLjQgICAgIOKckyBwdXJyciAgIDAuMy40XG7inJMgdGliYmxlICAzLjEuMiAgICAg4pyTIGRwbHlyICAgMS4wLjdcbuKckyB0aWR5ciAgIDEuMS4zICAgICDinJMgc3RyaW5nciAxLjQuMFxu4pyTIHJlYWRyICAgMS40LjAgICAgIOKckyBmb3JjYXRzIDAuNS4xXG7ilIDilIAgQ29uZmxpY3RzIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgCB0aWR5dmVyc2VfY29uZmxpY3RzKCkg4pSA4pSAXG54IGRwbHlyOjpmaWx0ZXIoKSBtYXNrcyB0aW1lU2VyaWVzOjpmaWx0ZXIoKSwgc3RhdHM6OmZpbHRlcigpXG54IGRwbHlyOjpsYWcoKSAgICBtYXNrcyB0aW1lU2VyaWVzOjpsYWcoKSwgc3RhdHM6OmxhZygpXG4ifQ== -->
 <pre><code>Registered S3 methods overwritten by &#39;dbplyr&#39;:
   method         from
   print.tbl_lazy     
   print.tbl_sql      
-── Attaching packages ──────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.1 ──
-✓ ggplot2 3.3.5     ✓ purrr   0.3.4
+── Attaching packages ─────────────────────────────────────────────────────────────── tidyverse 1.3.1 ──
+✓ ggplot2 3.3.4     ✓ purrr   0.3.4
 ✓ tibble  3.1.2     ✓ dplyr   1.0.7
 ✓ tidyr   1.1.3     ✓ stringr 1.4.0
 ✓ readr   1.4.0     ✓ forcats 0.5.1
-── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+── Conflicts ────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 x dplyr::filter() masks timeSeries::filter(), stats::filter()
 x dplyr::lag()    masks timeSeries::lag(), stats::lag()</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGl0YW5pYyA8LSByZWFkX2NzdihcImRhdGEvdGl0YW5pYy5jc3ZcIilcbmBgYCJ9 -->
 <pre class="r"><code>titanic &lt;- read_csv(&quot;data/titanic.csv&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG7ilIDilIAgQ29sdW1uIHNwZWNpZmljYXRpb24g4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAXG5jb2xzKFxuICBnZW5kZXIgPSBjb2xfY2hhcmFjdGVyKCksXG4gIGFnZSA9IGNvbF9kb3VibGUoKSxcbiAgY2xhc3MgPSBjb2xfY2hhcmFjdGVyKCksXG4gIGVtYmFya2VkID0gY29sX2NoYXJhY3RlcigpLFxuICBjb3VudHJ5ID0gY29sX2NoYXJhY3RlcigpLFxuICBmYXJlID0gY29sX2RvdWJsZSgpLFxuICBzaWJzcCA9IGNvbF9kb3VibGUoKSxcbiAgcGFyY2ggPSBjb2xfZG91YmxlKCksXG4gIHN1cnZpdmVkID0gY29sX2NoYXJhY3RlcigpXG4pXG4ifQ== -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG7ilIDilIAgQ29sdW1uIHNwZWNpZmljYXRpb24g4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAXG5jb2xzKFxuICBnZW5kZXIgPSBjb2xfY2hhcmFjdGVyKCksXG4gIGFnZSA9IGNvbF9kb3VibGUoKSxcbiAgY2xhc3MgPSBjb2xfY2hhcmFjdGVyKCksXG4gIGVtYmFya2VkID0gY29sX2NoYXJhY3RlcigpLFxuICBjb3VudHJ5ID0gY29sX2NoYXJhY3RlcigpLFxuICBmYXJlID0gY29sX2RvdWJsZSgpLFxuICBzaWJzcCA9IGNvbF9kb3VibGUoKSxcbiAgcGFyY2ggPSBjb2xfZG91YmxlKCksXG4gIHN1cnZpdmVkID0gY29sX2NoYXJhY3RlcigpXG4pXG4ifQ== -->
 <pre><code>
-── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
+── Column specification ────────────────────────────────────────────────────────────────────────────────
 cols(
   gender = col_character(),
   age = col_double(),
@@ -280,26 +280,46 @@ cols(
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudW5pcXVlKHRpdGFuaWMkY2xhc3MpXG5gYGAifQ== -->
 <pre class="r"><code>unique(titanic$class)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiM3JkXCIgICAgICAgICAgICAgIFwiMm5kXCIgICAgICAgICAgICAgIFwiMXN0XCIgICAgICAgICAgICAgIFwiZW5naW5lZXJpbmcgY3Jld1wiIFwidmljdHVhbGxpbmcgY3Jld1wiIFwicmVzdGF1cmFudCBzdGFmZlwiXG5bN10gXCJkZWNrIGNyZXdcIiAgICAgICBcbiJ9 -->
-<pre><code>[1] &quot;3rd&quot;              &quot;2nd&quot;              &quot;1st&quot;              &quot;engineering crew&quot; &quot;victualling crew&quot; &quot;restaurant staff&quot;
-[7] &quot;deck crew&quot;       </code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiM3JkXCIgICAgICAgICAgICAgIFwiMm5kXCIgICAgICAgICAgICAgIFwiMXN0XCIgICAgICAgICAgICAgIFwiZW5naW5lZXJpbmcgY3Jld1wiIFwidmljdHVhbGxpbmcgY3Jld1wiXG5bNl0gXCJyZXN0YXVyYW50IHN0YWZmXCIgXCJkZWNrIGNyZXdcIiAgICAgICBcbiJ9 -->
+<pre><code>[1] &quot;3rd&quot;              &quot;2nd&quot;              &quot;1st&quot;              &quot;engineering crew&quot; &quot;victualling crew&quot;
+[6] &quot;restaurant staff&quot; &quot;deck crew&quot;       </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBjcmVhdGUgYSBgY3Jld2AgY29sdW1uIGNvbnRhaW5pbmcgdmFsdWVzIGBUUlVFYCBvciBgRkFMU0VgXG5jcmV3IDwtIGMoXCJlbmdpbmVlcmluZyBjcmV3XCIsIFwidmljdHVhbGxpbmcgY3Jld1wiLCBcInJlc3RhdXJhbnQgc3RhZmZcIiwgXCJkZWNrIGNyZXdcIilcbnRpdGFuaWMgPC0gdGl0YW5pYyAlPiUgXG4gIG11dGF0ZShjcmV3ID0gaWZfZWxzZShjbGFzcyAlaW4lIGNyZXcsIFRSVUUsIEZBTFNFKSlcbiAgXG4gIFxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBjcmVhdGUgYSBgY3Jld2AgY29sdW1uIGNvbnRhaW5pbmcgdmFsdWVzIGBUUlVFYCBvciBgRkFMU0VgXG5jcmV3IDwtIGMoXCJlbmdpbmVlcmluZyBjcmV3XCIsIFwidmljdHVhbGxpbmcgY3Jld1wiLCBcInJlc3RhdXJhbnQgc3RhZmZcIiwgXCJkZWNrIGNyZXdcIilcbnRpdGFuaWMgPC0gdGl0YW5pYyAlPiUgXG4gIG11dGF0ZShjcmV3ID0gaWZfZWxzZShjbGFzcyAlaW4lIGNyZXcsIFRSVUUsIEZBTFNFKSlcbiAgXG5gYGAifQ== -->
 <pre class="r"><code># create a `crew` column containing values `TRUE` or `FALSE`
 crew &lt;- c(&quot;engineering crew&quot;, &quot;victualling crew&quot;, &quot;restaurant staff&quot;, &quot;deck crew&quot;)
 titanic &lt;- titanic %&gt;% 
   mutate(crew = if_else(class %in% crew, TRUE, FALSE))
-  
   </code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGl0YW5pYyAlPiVcbiAgY291bnQoY3JldylcbmBgYCJ9 -->
+<pre class="r"><code>titanic %&gt;%
+  count(crew)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInNwZWNfdGJsX2RmIiwidGJsX2RmIiwidGJsIiwiZGF0YS5mcmFtZSJdLCJucm93IjoyLCJuY29sIjoyLCJzdW1tYXJ5Ijp7IkEgdGliYmxlIjpbIjIgeCAyIl19fSwicmRmIjoiSDRzSUFBQUFBQUFBQTExUHV3N0NNQXgwU3dOcUpCNFMzOERZTGl5d0l6NEFnZFExbEFBVkphblNJQkFUWDA1eDBtUWdpMzIrK0M2KzNhWlkwb0lDd0FDU0NDdEJDT1N3MzJZcmdDVEdJWUlFVXROZitEeEhZRWpxT3RnRmdIRS9rd1h1dkFNaEVlek9Xd1F6dTlTVFNhbjQwenVMUUpFcStjeTl5bHAvc0hSZDl3MnR5NXExM3RxVDlNUTB5ODhLOVRpRmtwRnNkQ1VGaW1JVGhnVGlTQVhFOUNITUphZXN2RDdFTFZ1NzhKRUxQM1k0L3NmbXk3aHpWc1JaRGJtNFZJTDcyMnQyNUxVYkpwallCczRiVlFudGt5RGI1bHBxNXZkb0tXdlAyR3p3L1FHdkpQdHd3d0VBQUE9PSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["crew"],"name":[1],"type":["lgl"],"align":["right"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"FALSE","2":"1317"},{"1":"TRUE","2":"890"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>prob( survived ∣ crew )</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6MSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIHggMSJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVBTd3JDTUJDZHhrWnB3Q3A0am5hakMzZHV4QU9JZ3R0WXF4WnJVdElVZGVjTnZJNzNjbCtkbEFRa2dmbm16Y3g3NitWdXluWU1BSG9RQnVncHBrQzNtMVV5QndnSkZnR0VFSmw0eCs5SjF3Q0lUVnk4SDY4UG1VMDlJQlg4bXRlWWpQK25LdzhWS1hsTEhYS0lScDdvdnZqOGRWbkphMzhkTzNETjA2UENlYXhhYjJRZ0sxMUlnVVBFRUtZK0YrVTFSbzB3VEE1SmRtN0VKWm1aQTFZb1dIYUJ0Yi9jbkNSZnU0cmFWZjFjbkFxUk8rNGwzK2VsTFdKVTNBbE9LMVVJN1pSZ3QwNjExTnpoV0NaTDErbTBRZnNEV0l2RENxY0JBQUE9In0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucF9zdXJ2aXZlZF9jcmV3ICA8LSB0aXRhbmljICU+JSBcbiAgZmlsdGVyKHN1cnZpdmVkID09IFwieWVzXCIsIGNyZXcgPT0gVFJVRSkgJT4lIFxuICAgIHN1bW1hcmlzZShwID0gbigpL25yb3codGl0YW5pYykpXG5wX3N1cnZpdmVkX2NyZXdcbmBgYCJ9 -->
+<pre class="r"><code>p_survived_crew  &lt;- titanic %&gt;% 
+  filter(survived == &quot;yes&quot;, crew == TRUE) %&gt;% 
+    summarise(p = n()/nrow(titanic))
+p_survived_crew</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6MSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIHggMSJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVBTdzZDTUJBZEt0VkFJcHA0RHRqZ3dwMGI0d0dNSm13cm9oS3hKVkNpN3J5QjEvRmU3c0VwYVJQU0p2UHRtNW4zZHBzazloTWZBRWJnT3VncHBrQVArMjI0QW5BSkZnNjQ0S240eE85RjN3QUlWRngvWDU4ZldjWVdrSEoyejJwTTVzUHAwa0o1bFhoRUJqbEZJMjkwSFQ1N1hWcXcybDdubjVoazBibkNlYXhhYTJRaVNwa0xqa05FRWFZMmw4cHF6QnF1bUp6QzlOcndXeGlyQTFvb2FIYU90a0d1VHBKT3I2SjYxVGpqbDV4bmhudkJqbG1oaXdBVjk0S2pzc3E1TkVxd1cwZFNTR1p3ZmlvSzArbTFRZnNIOTJNbythY0JBQUE9In0= -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["p"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.09560489"}],"options":{"columns":{"min":{},"max":[10],"total":[1]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
@@ -317,7 +337,7 @@ titanic &lt;- titanic %&gt;%
     summarise(p = n()/nrow(titanic))
 p_survived_passenger</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6MSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIHggMSJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVBTdzZDTUJBZGtHb2dFVTA4QjJ5TWlUczN4Z01ZVGRpNHFJQkt4SlpBaWU1MDdVRThqU2Z4RU9DVXRBbHBrL24yemN4NzIzVTA5eUlQQUFiZ1dPZ0pwa0QydTAyd0JIQnNMQ3h3d0pYeGdkK3pyZ0hneTdqNnRwL2YrM2t3Z0lUUlcxcGhNdTFQRndiS0xmazkxTWd4bXYxQzErSXoxOFU1cmN4MVhrSUZEVThsem1QVkdDTWpYb2lNTXh5eUpXRmljaW1OeHFSbWtra1N4SmVhWFlPRlBLQ0VnbUpuS2V2bDhxVGRxbFZFclJxbTdKeXhWSFBQNlRITlZlR2o0azV3V0pRWkUxb0pkcXRRY0VFMXpvdDVyanVkTm1qKzNPUXM2YWNCQUFBPSJ9 -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6MSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIHggMSJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVBTdzZDTUJBZGtHb2dFVTA4QjJ4MDRjNk44UUJHRXpZdUtxQVNzU1ZRb2p0ZGV4QlA0MGs4QkRnbGJVTGFaTDU5TS9QZWRoM052Y2dEZ0FFNEZucUNLWkQ5YmhNc0FSd2JDd3NjY0dWODRQZXNhd0Q0TXE2KzdlZjNmaDRNSUdIMGxsYVlUUHZUaFlGeVMzNFBOWEtNWnIvUXRmak1kWEZPSzNPZGwxQkJ3MU9KODFnMXhzaUlGeUxqRElkc1NaaVlYRXFqTWFtWlpKSUU4YVZtMTJBaER5aWhvTmhaeW5xNVBHbTNhaFZScTRZcE8yY3MxZHh6ZWt4elZmaW91Qk1jRm1YR2hGYUMzU29VWEZDTjgyS2U2MDZuRFpvLy9zWnlpcWNCQUFBPSJ9 -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["p"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.2265519"}],"options":{"columns":{"min":{},"max":[10],"total":[1]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
@@ -358,9 +378,8 @@ prob_less_than_five</code></pre>
 </ol>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuNl4zXG5cbmBgYCJ9 -->
-<pre class="r"><code>6^3
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuNl4zXG5gYGAifQ== -->
+<pre class="r"><code>6^3</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDIxNlxuIn0= -->
 <pre><code>[1] 216</code></pre>
@@ -374,33 +393,53 @@ prob_less_than_five</code></pre>
 <p>Hint This is an arrangement where order matters. Of all the possible arrangements, how many are correct?</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGVvcGxlIDwtIGMoXCJBXCIsIFwiQlwiLCBcIkNcIiwgXCJEXCIsIFwiRVwiKVxuXG5jaGFpcl9wZXJtdSA8LSBhc190aWJibGUoXG4gIHBlcm11dGF0aW9ucyhcbiAgICBuID0gNSxcbiAgICByID0gNSxcbiAgICB2ID0gcGVvcGxlLFxuICAgIHJlcGVhdHMuYWxsb3dlZCA9IEZBTFNFKVxuKVxuXG5ucm93KGNoYWlyX3Blcm11KVxuYGBgIn0= -->
-<pre class="r"><code>people &lt;- c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;E&quot;)
-
-chair_permu &lt;- as_tibble(
-  permutations(
-    n = 5,
-    r = 5,
-    v = people,
-    repeats.allowed = FALSE)
-)
-
-nrow(chair_permu)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuMS9ucm93KGNoYWlyX3Blcm11KVxuXG5gYGAifQ== -->
+<pre class="r"><code>1/nrow(chair_permu)
+</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDEyMFxuIn0= -->
-<pre><code>[1] 120</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuMDA4MzMzMzMzXG4ifQ== -->
+<pre><code>[1] 0.008333333</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Only one correct seating is possible. The probability of this outcome is 1/120</p>
+<p>Other solution:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBudW1iZXIgb2Ygb3JkZXJlZCBhcnJhbmdlbWVudHM6XG5udW1fb3V0Y29tZXMgPC0gZmFjdG9yaWFsKDUpXG4jIG9ubHkgb25lIG9mIHRoZXNlIGlzIGNvcnJlY3RseSBvcmRlcmVkOlxucHJvYl9wZXJmZWN0X29yZGVyIDwtIDEvbnVtX291dGNvbWVzXG5wcm9iX3BlcmZlY3Rfb3JkZXJcbmBgYCJ9 -->
+<pre class="r"><code># number of ordered arrangements:
+num_outcomes &lt;- factorial(5)
+# only one of these is correctly ordered:
+prob_perfect_order &lt;- 1/num_outcomes
+prob_perfect_order</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuMDA4MzMzMzMzXG4ifQ== -->
+<pre><code>[1] 0.008333333</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 <ol start="6" style="list-style-type: decimal">
 <li>If I draw a single card from a 52-card deck, and it is black, what is the probability that its suit is spades?</li>
 </ol>
 <p>Hints</p>
 <p>Investigate the cards() function in the prob package, if you’d like to try this in R (make a deck without jokers). You could think about adding your own black_card random variable to the sample space, which would be TRUE if the suit is ‘Spade’ or ‘Club’, and FALSE otherwise.</p>
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2FyZHMoKVxuYGBgIn0= -->
+<pre class="r"><code>cards()</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibnJvdyI6NTIsIm5jb2wiOjIsInN1bW1hcnkiOnsiRGVzY3JpcHRpb24iOlsiZGYgWzUyIMOXIDJdIl19fSwicmRmIjoiSDRzSUFBQUFBQUFBQTgxVVMwL0NRQkJlK3VCUlFVMzhIVFFLNWVIQkE1RVlBeWQ4SkZ3WFdyU2hiRW5acWtkL09UaTc3RlMyd1NpY0pCbjZmVE03MDNsMUgvcmpwak4yQ0NFbXNRcndid01rOXZQVFhiMUxpR1VBS1JDTFZNVHpBOHdYQUVCcDF1RHBTYVBrNEEybmhTZElFYVFFVWdZUmppTDZDVWdWcFBhL2ZiU0NpMUh3RmtRclFPZlNxdHJRUU5CRTRDRm9JV2dqNkNEb0lyaFd3TGk2Uk5VQXdRakJFRUV2bDVNOWplZ0tVOG9TbmRFcGp4TkE2OXhvRGhYakNER1BFT3R3RVcwd05xcHlTMVZ1M1VicFJPRlNQNlNMbVBuWXFmdUFKaHpKNDVMNndUYUlpVUgydGsvdk5xT0xBTHR0NERzVHl1YUlWMm5JYzA2Vk9PVXU1VHdCUjBOOUwwWk5OYXYyWFl5MStUMnd5QWhqYUZ0WUZHZHZHaHByYXN6VFdFdGpiWTExTk5iVkdHNXJTYkpzWmJmR2djWkdHaHRxckplYlcwV1VkN016dktwVTZCTjBwRzUzakZ2Tnppei8yc085WjAwL1hDaFlCb2l6emk5QkpZbmZYVFRLT1g0UytmTisyQ2ZIcDV5NnN3UmM5b1FyeFVzZXhneVh3ODQ1RjVLYzRpeGw0dVYrZmZxYXNybTRsZVdsVmRqbWtGMTBIdEV1UGExZ0cyY1JzSmVRQmJqY0VaMEVrU0tuVUtTczBWMG1JY3Y2RGRxVnkyTk84Wnd6alNQVXlOckkrZ3RGckhRTlF3WUFBQT09In0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["rank"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["suit"],"name":[2],"type":["fctr"],"align":["left"]}],"data":[{"1":"2","2":"Club"},{"1":"3","2":"Club"},{"1":"4","2":"Club"},{"1":"5","2":"Club"},{"1":"6","2":"Club"},{"1":"7","2":"Club"},{"1":"8","2":"Club"},{"1":"9","2":"Club"},{"1":"10","2":"Club"},{"1":"J","2":"Club"},{"1":"Q","2":"Club"},{"1":"K","2":"Club"},{"1":"A","2":"Club"},{"1":"2","2":"Diamond"},{"1":"3","2":"Diamond"},{"1":"4","2":"Diamond"},{"1":"5","2":"Diamond"},{"1":"6","2":"Diamond"},{"1":"7","2":"Diamond"},{"1":"8","2":"Diamond"},{"1":"9","2":"Diamond"},{"1":"10","2":"Diamond"},{"1":"J","2":"Diamond"},{"1":"Q","2":"Diamond"},{"1":"K","2":"Diamond"},{"1":"A","2":"Diamond"},{"1":"2","2":"Heart"},{"1":"3","2":"Heart"},{"1":"4","2":"Heart"},{"1":"5","2":"Heart"},{"1":"6","2":"Heart"},{"1":"7","2":"Heart"},{"1":"8","2":"Heart"},{"1":"9","2":"Heart"},{"1":"10","2":"Heart"},{"1":"J","2":"Heart"},{"1":"Q","2":"Heart"},{"1":"K","2":"Heart"},{"1":"A","2":"Heart"},{"1":"2","2":"Spade"},{"1":"3","2":"Spade"},{"1":"4","2":"Spade"},{"1":"5","2":"Spade"},{"1":"6","2":"Spade"},{"1":"7","2":"Spade"},{"1":"8","2":"Spade"},{"1":"9","2":"Spade"},{"1":"10","2":"Spade"},{"1":"J","2":"Spade"},{"1":"Q","2":"Spade"},{"1":"K","2":"Spade"},{"1":"A","2":"Spade"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[52]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiVGl0YW5pYyBob21ld29yayB3aXRoIHByb2JhYmlsaXR5IgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKLS0tCgpgYGB7cn0KbGlicmFyeShwcm9iKQpsaWJyYXJ5KGd0b29scykKbGlicmFyeSh0aWR5dmVyc2UpCgp0aXRhbmljIDwtIHJlYWRfY3N2KCJkYXRhL3RpdGFuaWMuY3N2IikKCnVuaXF1ZSh0aXRhbmljJGNsYXNzKQpgYGAKYGBge3J9CiMgY3JlYXRlIGEgYGNyZXdgIGNvbHVtbiBjb250YWluaW5nIHZhbHVlcyBgVFJVRWAgb3IgYEZBTFNFYApjcmV3IDwtIGMoImVuZ2luZWVyaW5nIGNyZXciLCAidmljdHVhbGxpbmcgY3JldyIsICJyZXN0YXVyYW50IHN0YWZmIiwgImRlY2sgY3JldyIpCnRpdGFuaWMgPC0gdGl0YW5pYyAlPiUgCiAgbXV0YXRlKGNyZXcgPSBpZl9lbHNlKGNsYXNzICVpbiUgY3JldywgVFJVRSwgRkFMU0UpKQogIApgYGAKCnByb2IoIHN1cnZpdmVkIOKIoyBjcmV3ICkgIApgYGB7cn0KcF9zdXJ2aXZlZF9jcmV3ICA8LSB0aXRhbmljICU+JSAKICBmaWx0ZXIoc3Vydml2ZWQgPT0gInllcyIsIGNyZXcgPT0gVFJVRSkgJT4lIAogICAgc3VtbWFyaXNlKHAgPSBuKCkvbnJvdyh0aXRhbmljKSkKcF9zdXJ2aXZlZF9jcmV3CmBgYAoKCnByb2IoIHN1cnZpdmVkIOKIoyBwYXNzZW5nZXIgKSAKYGBge3J9CnBfc3Vydml2ZWRfcGFzc2VuZ2VyICA8LSB0aXRhbmljICU+JSAKICBmaWx0ZXIoc3Vydml2ZWQgPT0gInllcyIsIGNyZXcgPT0gRkFMU0UpICU+JSAKICAgIHN1bW1hcmlzZShwID0gbigpL25yb3codGl0YW5pYykpCnBfc3Vydml2ZWRfcGFzc2VuZ2VyCmBgYAoKSWYgSSByb2xsIGEgc2l4LXNpZGVkIGRpY2Ugb25jZSwgd2hhdCBpcyB0aGUgcHJvYmFiaWxpdHkgb2YgZ2V0dGluZyBhIG51bWJlciBsZXNzIHRoYW4gNT8KYGBge3J9CnMgPC0gcm9sbGRpZSgxKQooc2l6ZV9zIDwtIG5yb3cocykpCgpsZXNzX3RoYW5fZml2ZSA8LSBzICU+JSAKICBkcGx5cjo6ZmlsdGVyKFgxICA8IDUpCihzaXplX2xlc3NfdGhhbl9maXZlIDwtIG5yb3cobGVzc190aGFuX2ZpdmUpKQoKcHJvYl9sZXNzX3RoYW5fZml2ZSA8LSBzaXplX2xlc3NfdGhhbl9maXZlIC8gc2l6ZV9zCnByb2JfbGVzc190aGFuX2ZpdmUKYGBgCgoyLiBIb3cgbWFueSBvdXRjb21lcyBhcmUgdGhlcmUgaW4gdGhlIHNhbXBsZSBzcGFjZSBvZiBhbiBleHBlcmltZW50IGluIHdoaWNoIHdlIHRvc3MgdGhyZWUgZGljZT8KCmBgYHtyfQo2XjMKYGBgCjIxNiBvdXRjb21lcyBpbiB0aGUgc2FtcGxlIHNldAoKNC4gRml2ZSBjaGFpcnMgYXJlIHBsYWNlZCBpbiBhIHJvdyBpbiBhIHJvb20sIGFsb25nIHdpdGggZml2ZSBwZW9wbGUgb2YgZGlmZmVyaW5nIGhlaWdodC4gVGhlIHBlb3BsZSBzaXQgZG93biByYW5kb21seSBvbiB0aGUgY2hhaXJzLiBXaGF0IGlzIHRoZSBwcm9iYWJpbGl0eSB0aGF0IHRoZXkgc2l0IGluIG9yZGVyIG9mIGRlY3JlYXNpbmcgaGVpZ2h0LCBsZWZ0IHRvIHJpZ2h0PwoKSGludCBUaGlzIGlzIGFuIGFycmFuZ2VtZW50IHdoZXJlIG9yZGVyIG1hdHRlcnMuIE9mIGFsbCB0aGUgcG9zc2libGUgYXJyYW5nZW1lbnRzLCBob3cgbWFueSBhcmUgY29ycmVjdD8KYGBge3J9CnBlb3BsZSA8LSBjKCJBIiwgIkIiLCAiQyIsICJEIiwgIkUiKQoKY2hhaXJfcGVybXUgPC0gYXNfdGliYmxlKAogIHBlcm11dGF0aW9ucygKICAgIG4gPSA1LAogICAgciA9IDUsCiAgICB2ID0gcGVvcGxlLAogICAgcmVwZWF0cy5hbGxvd2VkID0gRkFMU0UpCikKCm5yb3coY2hhaXJfcGVybXUpCmBgYAoKT25seSBvbmUgY29ycmVjdCBzZWF0aW5nIGlzIHBvc3NpYmxlLgpUaGUgcHJvYmFiaWxpdHkgb2YgdGhpcyBvdXRjb21lIGlzIDEvMTIwCgo2LiBJZiBJIGRyYXcgYSBzaW5nbGUgY2FyZCBmcm9tIGEgNTItY2FyZCBkZWNrLCBhbmQgaXQgaXMgYmxhY2ssIHdoYXQgaXMgdGhlIHByb2JhYmlsaXR5IHRoYXQgaXRzIHN1aXQgaXMgc3BhZGVzPwoKSGludHMKCkludmVzdGlnYXRlIHRoZSBjYXJkcygpIGZ1bmN0aW9uIGluIHRoZSBwcm9iIHBhY2thZ2UsIGlmIHlvdeKAmWQgbGlrZSB0byB0cnkgdGhpcyBpbiBSIChtYWtlIGEgZGVjayB3aXRob3V0IGpva2VycykuCllvdSBjb3VsZCB0aGluayBhYm91dCBhZGRpbmcgeW91ciBvd24gYmxhY2tfY2FyZCByYW5kb20gdmFyaWFibGUgdG8gdGhlIHNhbXBsZSBzcGFjZSwgd2hpY2ggd291bGQgYmUgVFJVRSBpZiB0aGUgc3VpdCBpcyDigJhTcGFkZeKAmSBvciDigJhDbHVi4oCZLCBhbmQgRkFMU0Ugb3RoZXJ3aXNlLgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiVGl0YW5pYyBob21ld29yayB3aXRoIHByb2JhYmlsaXR5IgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKLS0tCgpgYGB7cn0KbGlicmFyeShwcm9iKQpsaWJyYXJ5KGd0b29scykKbGlicmFyeSh0aWR5dmVyc2UpCgp0aXRhbmljIDwtIHJlYWRfY3N2KCJkYXRhL3RpdGFuaWMuY3N2IikKCnVuaXF1ZSh0aXRhbmljJGNsYXNzKQpgYGAKYGBge3J9CiMgY3JlYXRlIGEgYGNyZXdgIGNvbHVtbiBjb250YWluaW5nIHZhbHVlcyBgVFJVRWAgb3IgYEZBTFNFYApjcmV3IDwtIGMoImVuZ2luZWVyaW5nIGNyZXciLCAidmljdHVhbGxpbmcgY3JldyIsICJyZXN0YXVyYW50IHN0YWZmIiwgImRlY2sgY3JldyIpCnRpdGFuaWMgPC0gdGl0YW5pYyAlPiUgCiAgbXV0YXRlKGNyZXcgPSBpZl9lbHNlKGNsYXNzICVpbiUgY3JldywgVFJVRSwgRkFMU0UpKQogIApgYGAKCmBgYHtyfQp0aXRhbmljICU+JQogIGNvdW50KGNyZXcpCmBgYAoKCnByb2IoIHN1cnZpdmVkIOKIoyBjcmV3ICkgIApgYGB7cn0KcF9zdXJ2aXZlZF9jcmV3ICA8LSB0aXRhbmljICU+JSAKICBmaWx0ZXIoc3Vydml2ZWQgPT0gInllcyIsIGNyZXcgPT0gVFJVRSkgJT4lIAogICAgc3VtbWFyaXNlKHAgPSBuKCkvbnJvdyh0aXRhbmljKSkKcF9zdXJ2aXZlZF9jcmV3CmBgYAoKCnByb2IoIHN1cnZpdmVkIOKIoyBwYXNzZW5nZXIgKSAKYGBge3J9CnBfc3Vydml2ZWRfcGFzc2VuZ2VyICA8LSB0aXRhbmljICU+JSAKICBmaWx0ZXIoc3Vydml2ZWQgPT0gInllcyIsIGNyZXcgPT0gRkFMU0UpICU+JSAKICAgIHN1bW1hcmlzZShwID0gbigpL25yb3codGl0YW5pYykpCnBfc3Vydml2ZWRfcGFzc2VuZ2VyCmBgYAoKSWYgSSByb2xsIGEgc2l4LXNpZGVkIGRpY2Ugb25jZSwgd2hhdCBpcyB0aGUgcHJvYmFiaWxpdHkgb2YgZ2V0dGluZyBhIG51bWJlciBsZXNzIHRoYW4gNT8KYGBge3J9CnMgPC0gcm9sbGRpZSgxKQooc2l6ZV9zIDwtIG5yb3cocykpCgpsZXNzX3RoYW5fZml2ZSA8LSBzICU+JSAKICBkcGx5cjo6ZmlsdGVyKFgxICA8IDUpCihzaXplX2xlc3NfdGhhbl9maXZlIDwtIG5yb3cobGVzc190aGFuX2ZpdmUpKQoKcHJvYl9sZXNzX3RoYW5fZml2ZSA8LSBzaXplX2xlc3NfdGhhbl9maXZlIC8gc2l6ZV9zCnByb2JfbGVzc190aGFuX2ZpdmUKYGBgCgoyLiBIb3cgbWFueSBvdXRjb21lcyBhcmUgdGhlcmUgaW4gdGhlIHNhbXBsZSBzcGFjZSBvZiBhbiBleHBlcmltZW50IGluIHdoaWNoIHdlIHRvc3MgdGhyZWUgZGljZT8KCmBgYHtyfQo2XjMKYGBgCjIxNiBvdXRjb21lcyBpbiB0aGUgc2FtcGxlIHNldAoKNC4gRml2ZSBjaGFpcnMgYXJlIHBsYWNlZCBpbiBhIHJvdyBpbiBhIHJvb20sIGFsb25nIHdpdGggZml2ZSBwZW9wbGUgb2YgZGlmZmVyaW5nIGhlaWdodC4gVGhlIHBlb3BsZSBzaXQgZG93biByYW5kb21seSBvbiB0aGUgY2hhaXJzLiBXaGF0IGlzIHRoZSBwcm9iYWJpbGl0eSB0aGF0IHRoZXkgc2l0IGluIG9yZGVyIG9mIGRlY3JlYXNpbmcgaGVpZ2h0LCBsZWZ0IHRvIHJpZ2h0PwoKSGludCBUaGlzIGlzIGFuIGFycmFuZ2VtZW50IHdoZXJlIG9yZGVyIG1hdHRlcnMuIE9mIGFsbCB0aGUgcG9zc2libGUgYXJyYW5nZW1lbnRzLCBob3cgbWFueSBhcmUgY29ycmVjdD8KYGBge3J9CnBlb3BsZSA8LSBjKCJBIiwgIkIiLCAiQyIsICJEIiwgIkUiKQoKY2hhaXJfcGVybXUgPC0gYXNfdGliYmxlKAogIHBlcm11dGF0aW9ucygKICAgIG4gPSA1LAogICAgciA9IDUsCiAgICB2ID0gcGVvcGxlLAogICAgcmVwZWF0cy5hbGxvd2VkID0gRkFMU0UpCikKCm5yb3coY2hhaXJfcGVybXUpCgoxL25yb3coY2hhaXJfcGVybXUpCmBgYAoKT25seSBvbmUgY29ycmVjdCBzZWF0aW5nIGlzIHBvc3NpYmxlLgpUaGUgcHJvYmFiaWxpdHkgb2YgdGhpcyBvdXRjb21lIGlzIDEvMTIwCgpPdGhlciBzb2x1dGlvbjoKYGBge3J9CiMgbnVtYmVyIG9mIG9yZGVyZWQgYXJyYW5nZW1lbnRzOgpudW1fb3V0Y29tZXMgPC0gZmFjdG9yaWFsKDUpCiMgb25seSBvbmUgb2YgdGhlc2UgaXMgY29ycmVjdGx5IG9yZGVyZWQ6CnByb2JfcGVyZmVjdF9vcmRlciA8LSAxL251bV9vdXRjb21lcwpwcm9iX3BlcmZlY3Rfb3JkZXIKYGBgCgoKNi4gSWYgSSBkcmF3IGEgc2luZ2xlIGNhcmQgZnJvbSBhIDUyLWNhcmQgZGVjaywgYW5kIGl0IGlzIGJsYWNrLCB3aGF0IGlzIHRoZSBwcm9iYWJpbGl0eSB0aGF0IGl0cyBzdWl0IGlzIHNwYWRlcz8KCkhpbnRzCgpJbnZlc3RpZ2F0ZSB0aGUgY2FyZHMoKSBmdW5jdGlvbiBpbiB0aGUgcHJvYiBwYWNrYWdlLCBpZiB5b3XigJlkIGxpa2UgdG8gdHJ5IHRoaXMgaW4gUiAobWFrZSBhIGRlY2sgd2l0aG91dCBqb2tlcnMpLgpZb3UgY291bGQgdGhpbmsgYWJvdXQgYWRkaW5nIHlvdXIgb3duIGJsYWNrX2NhcmQgcmFuZG9tIHZhcmlhYmxlIHRvIHRoZSBzYW1wbGUgc3BhY2UsIHdoaWNoIHdvdWxkIGJlIFRSVUUgaWYgdGhlIHN1aXQgaXMg4oCYU3BhZGXigJkgb3Ig4oCYQ2x1YuKAmSwgYW5kIEZBTFNFIG90aGVyd2lzZS4KYGBge3J9CmNhcmRzKCkKYGBgCgo=</div>
 
 
 
