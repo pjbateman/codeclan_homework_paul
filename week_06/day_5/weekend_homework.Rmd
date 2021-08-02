@@ -126,8 +126,8 @@ alpha: 5%
 
 ```{r}
 dom_msleep <- msleep %>% 
-  filter(!is.na(is_domesticated)) %>% 
-  mutate(is_domesticated = ifelse(conservation == "domesticated", "yes", "no"))
+  mutate(is_domesticated = ifelse(conservation == "domesticated", "yes", "no")) %>% 
+    filter(!is.na(is_domesticated))
 
 q4_observed_stat <- dom_msleep %>% 
   filter(is_domesticated == "yes") %>% 
