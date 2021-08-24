@@ -1,0 +1,155 @@
+---
+title: "Homework - features and elements of multiple regression"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    df_print: paged
+    css: ../../../styles.css
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align = 'center')
+```
+
+<hr>
+
+# MVP
+
+1. Load the `diamonds.csv` data set and undertake an initial exploration of the data. You will find a description of the meanings of the variables on the relevant [Kaggle page](https://www.kaggle.com/shivam2503/diamonds/)
+
+<br>
+
+```{r}
+library(tidyverse)
+library(GGally)
+library(janitor)
+library(fastDummies)
+library(ggfortify)
+```
+
+```{r}
+diamonds <- clean_names(read_csv("data/diamonds.csv"))
+glimpse(diamonds)
+```
+
+
+2. We expect the `carat` of the diamonds to be strong correlated with the physical dimensions `x`, `y` and `z`. Use `ggpairs()` to investigate correlations between these four variables.
+
+<br>
+```{r}
+diamonds_trimmed <- diamonds %>% 
+  select(c("carat", "x", "y", "z"))
+ggpairs(diamonds_trimmed)
+```
+
+3. So, we do find significant correlations. Let's drop columns `x`, `y` and `z` from the dataset, in preparation to use only `carat` going forward.
+
+<br>
+```{r}
+diamonds_new <- diamonds %>% 
+  select(-c("x", "y", "z"))
+```
+
+4. We are interested in developing a regression model for the `price` of a diamond in terms of the possible predictor variables in the dataset. 
+
+  i. Use `ggpairs()` to investigate correlations between `price` and the predictors (this may take a while to run, don't worry, make coffee or something).
+
+  ii. Perform further `ggplot` visualisations of any significant correlations you find.
+  
+<br>
+```{r}
+ggpairs(diamonds_new)
+```
+
+```{r}
+diamonds_new  %>% 
+  ggplot(aes(x = carat, y = price)) +
+  geom_point()
+```
+
+5. Shortly we may try a regression fit using one or more of the categorical predictors `cut`, `clarity` and `color`, so let's investigate these predictors: 
+
+  i. Investigate the factor levels of these predictors. How many dummy variables do you expect for each of them?
+cut: there are 5 levels, so 4 dummy variables are required
+```{r}
+diamonds_new %>% 
+  distinct(cut)
+```
+
+
+clarity: there are 8 levels, so 7 dummy variables are required
+```{r}
+diamonds_new %>% 
+  distinct(clarity)
+```
+
+colour: there are 7 levels, so 6 dummy variables are required
+```{r}
+diamonds_new %>% 
+  distinct(color)
+```
+
+  ii. Use the `dummy_cols()` function in the `fastDummies` package to generate dummies for these predictors and check the number of dummies in each case.
+cut: 
+```{r}
+diamonds_new %>% 
+  dummy_cols(select_columns = "cut",
+             remove_selected_columns = TRUE)
+```
+
+clarity
+```{r}
+diamonds_new %>% 
+  dummy_cols(select_columns = "clarity",
+             remove_selected_columns = TRUE)
+```
+
+colour
+```{r}
+diamonds_new %>% 
+  dummy_cols(select_columns = "color",
+             remove_selected_columns = TRUE)
+```
+
+    
+6. Start with simple linear regression. Regress `price` on `carat` and check the regression diagnostics.
+
+<br>
+```{r}
+diamonds_new %>% 
+  ggplot(aes(x = carat, y = price)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r}
+diamonds_linear_model <- lm(price ~ carat, data = diamonds_new)
+
+autoplot(diamonds_linear_model)
+summary(diamonds_linear_model)
+```
+
+
+7. Add another predictor of your choice. Check your assumptions, diagnostics, and interpret the model.
+
+
+    
+<hr>
+```{r}
+diamonds_multiregression_model1 <- lm(price ~ carat + table, data = diamonds_new)
+autoplot(diamonds_multiregression_model1) # the output does not look very promising
+summary(diamonds_multiregression_model1) # doesn't add much explanatory power - r2 went up only about 1pp
+```
+
+
+# Extension
+    
+8. Try adding an interaction between `log(carat)` and your chosen categorical predictor. Do you think this interaction term is statistically justified?
+
+<br>
+
+9. Find and plot an appropriate visualisation to show the effect of this interaction
+    
