@@ -79,6 +79,9 @@ summary(pm_model)
 
 * Is the relationship statistically significant? Remember, to assess this you need to check the $p$-value of the regression coefficient (or slope/gradient). But you should first check the regression diagnostic plots to see if the $p$-value will be reliable (don't worry about any outlier points you see in the diagnostic plots, we'll return to them in the extension).
 ```{r}
+library(ggfortify)
+autoplot(pm_model)
+# the plots looks broadly fine
 # yes, the low p-value of estimated_length of 1.91e-12 is statistically significant
 ```
 

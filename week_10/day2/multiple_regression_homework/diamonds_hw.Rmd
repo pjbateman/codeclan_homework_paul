@@ -97,21 +97,21 @@ cut:
 ```{r}
 diamonds_new %>% 
   dummy_cols(select_columns = "cut",
-             remove_selected_columns = TRUE)
+             remove_first_dummy  = TRUE)
 ```
 
 clarity
 ```{r}
 diamonds_new %>% 
   dummy_cols(select_columns = "clarity",
-             remove_selected_columns = TRUE)
+             remove_first_dummy = TRUE)
 ```
 
 colour
 ```{r}
 diamonds_new %>% 
   dummy_cols(select_columns = "color",
-             remove_selected_columns = TRUE)
+             remove_first_dummy = TRUE)
 ```
 
     
