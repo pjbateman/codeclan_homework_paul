@@ -77,13 +77,10 @@ kc_data_trimmed <- kc_data_trimmed %>%
   mutate(yr_renovated = ifelse(yr_renovated > 0, TRUE, FALSE)) %>% 
   rename(renovated = yr_renovated)
 
-# conditional is categorical and ordinal
-LOOK AT SETTING TO A FACTOR
+# conditional and grade are categorical and ordinal
 kc_data_trimmed %>% 
-  distinct(condition)
-# grade is categorical and ordinal
-kc_data_trimmed %>% 
-  distinct(grade)
+  mutate(condition = as.factor(condition),
+         grade = as.factor(grade))
 
 ```
 
