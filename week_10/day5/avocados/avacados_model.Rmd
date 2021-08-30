@@ -34,3 +34,8 @@ avocados_trimmed <- avocados %>%
   mutate(type = as.factor(type)) # to allow to be converted into a dummy variable
 ```
 
+Now we've done our cleaning, we can check for aliased variables (i.e. combinations of variables in which one or more of the variables can be calculated exactly from other variables):
+
+```{r}
+alias(average_price ~ ., data = avocados_trimmed )
+```
