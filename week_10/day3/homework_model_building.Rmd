@@ -57,30 +57,36 @@ Tidy up the data ready for regression:
 ```{r}
 library(tidyverse)
 library(janitor)
+library(GGally)
+library(modelr)
 ```
 
 
 ```{r}
-kc_data <- clean_names(read_csv("data/kc_house_data.csv"))
-kc_data_trimmed <- kc_data %>% 
-  select(-c("date", "id", "sqft_living15", "sqft_lot15", "zipcode"))
+houses <- clean_names(read_csv("data/kc_house_data.csv"))
+
+houses_tidy <- houses %>%
+  select(-c("id", "date", "sqft_living15", "sqft_lot15", "zipcode")) %>%
+  mutate(waterfront = as.logical(waterfront)) %>%
+  mutate(renovated = yr_renovated != 0) %>%
+  select(-"yr_renovated") %>%
+  mutate(condition = as_factor(condition)) %>%
+  mutate(grade = as_factor(grade)) %>% 
+  mutate(view = as.logical(view))
+
+
 # removed date as not sure if it can be included in a regression
 # removed id as it is not expected to have any explanatory power
 # removed sqft_living15 and sqft_loft15 as they are may not be independent of sqft_living and sqft_loft
 # removed zipcode as lat and long explain the location more accurately
 
-kc_data_trimmed %>% 
-  distinct(waterfront)
+
 # kept unaltered as it seems to look like a dummy variable
 
-kc_data_trimmed <- kc_data_trimmed %>% 
-  mutate(yr_renovated = ifelse(yr_renovated > 0, TRUE, FALSE)) %>% 
-  rename(renovated = yr_renovated)
+glimpse(houses_tidy)
 
 # conditional and grade are categorical and ordinal
-kc_data_trimmed %>% 
-  mutate(condition = as.factor(condition),
-         grade = as.factor(grade))
+
 
 ```
 
@@ -88,6 +94,16 @@ kc_data_trimmed %>%
 # Question 2
 
 Check for aliased variables using the `alias()` function (this takes in a formula object and a data set). [**Hint** - formula `price ~ .` says "price varying with all predictors", this is a suitable input to `alias()`]. Remove variables that lead to an alias. Check the 'Elements of multiple regression' lesson for a dropdown containing further information on finding aliased variables in a dataset.
+```{r}
+alias(lm(price ~ ., data = houses_tidy))
+```
+```{r}
+# decided to drop sqft_living, as it seem to be equal to sqft_basement + sqft_above
+houses_tidy <- kc_data_trimmed %>% 
+  select(-c("sqft_living"))
+
+glimpse(houses_tidy)
+```
 
 
 # Question 3
@@ -113,7 +129,80 @@ and the same in subsequent rounds of predictor selection with the `resid` column
 Remember, if you are not sure whether including a categorical predictor is statistically justified, run an `anova()` test passing in the models with- and without the categorical predictor and check the p-value of the test.
 </details>
 
+```{r}
+ggpairs(houses_tidy_numeric, columns = c(1,2,3,4))
+```
+Correlation of sqft_above with price looks pretty promising, but split of price by grade and waterfront also look decent.
 
+```{r}
+houses_tidy %>%
+  ggplot(aes(x = grade, y = price)) +
+  geom_boxplot()
+```
+
+```{r}
+mod1a <- lm(price ~ sqft_above, data = houses_tidy)
+summary(mod1a)
+```
+
+```{r}
+mod1b <- lm(price ~ grade, data = houses_tidy)
+summary(mod1b)
+# we can't drop some of the categorical data, so we keep all or drop all of the grades
+```
+```{r}
+mod1c <- lm(price ~ waterfront, data = houses_tidy)
+summary(mod1c)
+```
+```{r}
+nullmodel <- lm(price ~ 1, data = houses_tidy)
+grade_model <- lm(price ~ grade, data = houses_tidy)
+anova(nullmodel, grade_model)
+# the output tells us we should include all the categories of grades, as the grade model is statistically significant
+```
+
+```{r}
+par(mfor = c(2,2))
+plot(mod1b)
+# we should actually reject the model given this output, but for the example we will continue anyway
+```
+
+```{r}
+houses_resid <- houses_tidy %>% 
+  add_residuals(mod1b) %>% 
+  select(-c("price", "grade"))
+
+houses_resid_numeric <- houses_resid %>% 
+  select_if(is.numeric)
+
+houses_resid_nonnumeric <- houses_resid %>% 
+  select_if(function(x) !is.numeric(x))
+
+houses_resid_nonnumeric$resid <- houses_resid$resid
+```
+
+```{r}
+ggpairs(houses_resid_numeric)
+```
+```{r}
+mod2a <- lm(price ~ grade + lat, data = houses_tidy)
+summary(mod2a)
+```
+
+```{r}
+ggpairs(houses_resid_nonnumeric)
+# waterfront has the greatest variabilty in residuals, so we'll use that next
+```
+
+```{r}
+mod2b <- lm(price ~ grade + waterfront, data = houses_tidy)
+summary(mod2b)
+```
+
+```{r}
+mod3a <- lm(price ~ grade + lat)
+# we just "rinse and repeat" the process until we select the best 
+```
 
 # Extensions
 
