@@ -1,0 +1,36 @@
+---
+title: "Building a multiple linear regression model - Avocados"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+```
+
+```{r}
+avocados <- clean_names(read_csv("data/avocado.csv")) # names are clean on import into R
+```
+
+Let's build an explanatory model
+
+```{r}
+# exploring the data
+unique(avocados$region)
+unique(avocados$year)
+unique(avocados$type)
+```
+
+
+```{r}
+# drop x1 because it is just an index number
+# drop date as it is not independent from year
+# drop total bags, as it is related to other "bag" variables
+# drop total volume, as it is related to other PLU volume variables
+# drop region, as there are 54 regions and keeping it will create too many dummy variables
+
+avocados_trimmed <- avocados %>% 
+  select(-c("x1", "date", "total_volume","total_bags", "region")) %>% 
+  mutate(type = as.factor(type)) # to allow to be converted into a dummy variable
+```
+

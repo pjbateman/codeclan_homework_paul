@@ -1,0 +1,57 @@
+---
+title: "Homework Quiz"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    df_print: paged
+    css: ../../../styles.css
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<br><br>
+
+1. I want to predict how well 6 year-olds are going to do in their final school exams. Using the following variables am I likely under-fitting, fitting well or over-fitting? Postcode, gender, reading level, score in maths test, date of birth, family income.
+Answer:
+You are likely to be over-fitting because some of the variables may not be independent of each other, and some may be superfluous.  
+E.g. DOB is a given, since we are testing 6-year olds.  Postcode may not reveal anything, or the wealth effect may be covered by family income.
+
+2. If I have two models, one with an AIC score of 34,902 and the other with an AIC score of 33,559 which model should I use?
+Answer:
+The one with AIC 33,559 all else being equal.  Lower AIC is a better fitting model.
+
+3. I have two models, the first with: r-squared: 0.44, adjusted r-squared: 0.43. The second with: r-squared: 0.47, adjusted r-squared: 0.41. Which one should I use?
+Answer:
+The one with r-squared: 0.44, adjusted r-squared: 0.43.  The adjusted r-squared of both models is similar, but the second model shows a large drop in 
+adjusted r-squared compared to r-squared, which is a warning sign that over-fitting may be present due to many more variables.
+
+4. I have a model with the following errors: RMSE error on test set: 10.3, RMSE error on training data: 10.4. Do you think this model is over-fitting?
+Answer:
+Yes.  To get a lower RMSE in the test data compared to the training data would indicate over-fitting may be present.
+
+5. How does k-fold validation work?
+Answer:
+k-fold validation works by taking a sub set of the data, and training the model, then taking a new sub set, and testing the model again.  The repeated testing of different
+subsets of the dataset help to improve the robustness of the model.
+
+6. What is a validation set? When do you need one?
+Answer:
+A validation set is the same as a test set.  You see one when a dataset has been divided in a training and a test/validation set, in order to validate the trained model on real data.
+
+
+7. Describe how backwards selection works.
+Answer:
+Backwards selection tests all variables first in order to determine the best model, and removes variables one-by-one, running a new model at each stage to determine the best model to use based on its output metrics (r2 etc).
+
+8. Describe how best subset selection works.
+Answer: 
+not sure
+
+
+
+
