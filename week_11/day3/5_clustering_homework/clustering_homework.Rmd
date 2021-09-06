@@ -1,0 +1,136 @@
+---
+title: "Clustering homework"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+* You have been provided some customer data from a shopping centre. Do some exploratory analysis on the data. Comment on findings. 
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(factoextra)
+```
+
+```{r}
+customers <- clean_names(read_csv("data/mall_customers.csv"))
+```
+
+* We are interested in creating a marketing campaign to target customers based on their spending score and annual income. Perform a k-means clustering to find if there are meaningful clusters in the data to target the customers. 
+
+```{r}
+customers_trimmed <- customers %>%
+  mutate_if(is.numeric, scale) %>% 
+  mutate(gender = ifelse(gender == "Male",1,0)) %>% 
+  select(-customer_id)
+```
+
+```{r}
+# scaling the data
+customers_scaled <- customers_trimmed %>% 
+  mutate_if(is.numeric, scale)
+```
+
+```{r}
+cluster_cust <- kmeans(customers_scaled, 
+                      centers = 6,
+                      nstart = 25)
+cluster_cust
+```
+
+* Perform k-means clustering and chose a value of k.
+```{r}
+library(broom)
+
+tidy(cluster_cust,
+     col.names = colnames(customers_scaled))
+
+augment(cluster_cust, customers)
+
+```
+```{r}
+glance(cluster_cust)
+```
+```{r}
+# Set min & max number of clusters want to look at 
+max_k <- 20 
+
+k_clusters <- tibble(k = 1:max_k) %>%
+  mutate(
+    kclust = map(k, ~ kmeans(customers_scaled, .x, nstart = 25)), 
+    tidied = map(kclust, tidy),
+    glanced = map(kclust, glance),
+    augmented = map(kclust, augment, customers)
+  )
+
+k_clusters %>% 
+  unnest(augmented)
+```
+
+Choosing your number of clusters
+```{r}
+clusterings <- k_clusters %>% 
+  unnest(glanced)
+
+clusterings
+
+ggplot(clusterings) +
+  aes(x = k, y = tot.withinss) +
+  geom_point() +
+  geom_line() +
+  scale_x_continuous(breaks = seq(1,20, by = 1))
+```
+
+Silhouette Coefficient
+>0 means you data is well clustered (the closer to 1 the better)
+= 0 means it's close to a decision boundary
+<0 means it was placed in the wrong cluster
+
+average SC over all clusters.  average over 0.5 is good
+The value of k (number of clusters) that gives you the best SC.
+
+```{r}
+fviz_nbclust(customers_scaled,
+             kmeans,
+             method = "silhouette",
+             nstart = 25)
+```
+
+Gap statistic
+```{r}
+fviz_nbclust(customers_scaled,
+             kmeans,
+             method = "gap_stat",
+             nstart = 25)
+```
+
+```{r}
+names(customers_trimmed)
+```
+
+
+* Visualise the clustering for your chosen value of k.
+```{r}
+clusterings %>% 
+  unnest(cols = c(augmented)) %>% 
+  filter(k == 2) %>% 
+  ggplot() +
+  aes(x = age, y = spending_score_1_100, colour = .cluster, label = gender) +
+  geom_point(aes(colour = .cluster)) + 
+  geom_text(hjust = 0, vjust = -0.5, size = 3)
+```
+
+* Do you think the clustering seems a good fit for this data?
+Yes, because there does seem to a be 2 distinct clusters on age and spending.
+
+* Comment on the attributes on one or two of the clusters (maybe even give them a label if you like - like in section 4.1 of the 'Segmentation & clustering intro' lesson). 
+
+
+
+
+
+
