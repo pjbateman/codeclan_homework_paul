@@ -1,0 +1,13 @@
+"prognosis","treatment_group","recovery"
+"Excellent","treatment_a",6
+"Good","treatment_a",7
+"Average","treatment_a",12
+"Poor","treatment_a",15
+"Excellent","treatment_b",7
+"Good","treatment_b",12
+"Average","treatment_b",13
+"Poor","treatment_b",17
+"Excellent","control",8
+"Good","control",16
+"Average","control",14
+"Poor","control",16
